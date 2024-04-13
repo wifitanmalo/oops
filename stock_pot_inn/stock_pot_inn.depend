@@ -1,0 +1,66 @@
+# depslib dependency file v1.0
+1712979481 source:c:\users\sapoc\music\stock_pot_inn\main.cpp
+	<iostream>
+	"Hotel.h"
+
+1712979873 c:\users\sapoc\music\stock_pot_inn\include\hotel.h
+	<iostream>
+	"Reception.h"
+
+1712981352 c:\users\sapoc\music\stock_pot_inn\include\reception.h
+	<iomanip>
+	<iostream>
+	<vector>
+	"Room.h"
+
+1712981352 c:\users\sapoc\music\stock_pot_inn\include\room.h
+	<iostream>
+	<vector>
+	"Customer.h"
+
+1712981286 c:\users\sapoc\music\stock_pot_inn\include\customer.h
+	<iostream>
+
+1712979873 source:c:\users\sapoc\music\stock_pot_inn\src\hotel.cpp
+	"Hotel.h"
+
+1712980541 source:c:\users\sapoc\music\stock_pot_inn\src\room.cpp
+	"Room.h"
+
+1712980671 source:c:\users\sapoc\music\stock_pot_inn\src\customer.cpp
+	"Customer.h"
+
+1712984461 source:c:\users\sapoc\downloads\oops!\stock_pot_inn\src\customer.cpp
+	"Customer.h"
+
+1712981286 c:\users\sapoc\downloads\oops!\stock_pot_inn\include\customer.h
+	<iostream>
+
+1712984776 source:c:\users\sapoc\downloads\oops!\stock_pot_inn\src\hotel.cpp
+	"Hotel.h"
+
+1712979873 c:\users\sapoc\downloads\oops!\stock_pot_inn\include\hotel.h
+	<iostream>
+	"Reception.h"
+
+1712985273 c:\users\sapoc\downloads\oops!\stock_pot_inn\include\reception.h
+	<iomanip>
+	<iostream>
+	<vector>
+	"Room.h"
+
+1712985248 c:\users\sapoc\downloads\oops!\stock_pot_inn\include\room.h
+	<iostream>
+	<vector>
+	"Customer.h"
+
+1712980541 source:c:\users\sapoc\downloads\oops!\stock_pot_inn\src\room.cpp
+	"Room.h"
+
+1712981736 source:c:\users\sapoc\downloads\oops!\stock_pot_inn\main.cpp
+	<iostream>
+	"Hotel.h"
+
+1712985248 source:c:\users\sapoc\downloads\oops!\stock_pot_inn\src\reception.cpp
+	"Reception.h"
+
