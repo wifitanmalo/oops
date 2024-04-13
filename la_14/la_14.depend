@@ -1,0 +1,88 @@
+# depslib dependency file v1.0
+1712183782 source:c:\users\sapoc\music\la_14\main.cpp
+	<iostream>
+	"Bill.h"
+
+1712187437 c:\users\sapoc\music\la_14\include\bill.h
+	<iostream>
+	"Crud.h"
+
+1712195096 c:\users\sapoc\music\la_14\include\crud.h
+	<iostream>
+	<vector>
+	"Customer.h"
+	"Product.h"
+
+1712189686 c:\users\sapoc\music\la_14\include\customer.h
+	<iostream>
+	<vector>
+
+1712197031 c:\users\sapoc\music\la_14\include\product.h
+	<iostream>
+	<vector>
+
+1712197666 source:c:\users\sapoc\music\la_14\src\bill.cpp
+	"Bill.h"
+
+1712197589 source:c:\users\sapoc\music\la_14\src\crud.cpp
+	"Crud.h"
+
+1712193440 source:c:\users\sapoc\music\la_14\src\customer.cpp
+	"Customer.h"
+
+1712197031 source:c:\users\sapoc\music\la_14\src\product.cpp
+	"Product.h"
+
+1712940219 source:c:\users\sapoc\downloads\oops!\la_14\main.cpp
+	<iostream>
+	"Menu.h"
+
+1712943105 c:\users\sapoc\downloads\oops!\la_14\include\bill.h
+	<iostream>
+	<vector>
+	"Cloud.h"
+
+1712940219 c:\users\sapoc\downloads\oops!\la_14\include\crud.h
+	<iostream>
+	<vector>
+	"Customer.h"
+	"Product.h"
+	"Bill.h"
+
+1712940219 c:\users\sapoc\downloads\oops!\la_14\include\customer.h
+	<iostream>
+	<vector>
+	"Cloud.h"
+
+1712940219 c:\users\sapoc\downloads\oops!\la_14\include\product.h
+	<iostream>
+	<vector>
+	"Cloud.h"
+
+1712943105 source:c:\users\sapoc\downloads\oops!\la_14\src\bill.cpp
+	"Bill.h"
+
+1712943152 source:c:\users\sapoc\downloads\oops!\la_14\src\crud.cpp
+	"Crud.h"
+
+1712940219 source:c:\users\sapoc\downloads\oops!\la_14\src\customer.cpp
+	"Customer.h"
+
+1712940219 source:c:\users\sapoc\downloads\oops!\la_14\src\product.cpp
+	"Product.h"
+
+1712940219 c:\users\sapoc\downloads\oops!\la_14\include\menu.h
+	<iostream>
+	"Crud.h"
+	<vector>
+
+1712940219 c:\users\sapoc\downloads\oops!\la_14\include\cloud.h
+	<iostream>
+	<vector>
+
+1712940219 source:c:\users\sapoc\downloads\oops!\la_14\src\menu.cpp
+	"Menu.h"
+
+1712940219 source:c:\users\sapoc\downloads\oops!\la_14\src\cloud.cpp
+	"Cloud.h"
+
