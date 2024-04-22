@@ -42,9 +42,9 @@ void Menu::crud_menu(int data, int loop, bool exist)
     system("cls");
     switch(option)
     {
-        case 1: c_reate(data, loop, exist); break;
-        case 2: r_ead(data, loop, exist); break;
-        case 3: u_pdate(data, loop, exist); break;
+        case 1: create(data, loop, exist); break;
+        case 2: read(data, loop, exist); break;
+        case 3: update(data, loop, exist); break;
         case 4: d_elete(data, loop, exist); break;
         default: cout << "----- See you space, cowboy -----\n"; exit(0); break;
     }

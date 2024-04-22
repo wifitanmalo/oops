@@ -18,7 +18,7 @@ Crud::~Crud()
 }
 
 
-void Crud::c_reate(int data, int loop, bool exist)
+void Crud::create(int data, int loop, bool exist)
 {
     if(data == 1) // create a CUSTOMER --------------------------------------------------------------------------------
     {
@@ -49,8 +49,8 @@ void Crud::c_reate(int data, int loop, bool exist)
         {
             if(product.get_productid() == products[p].get_productid())
             {
-                cout << "----- product already exists -----" << endl;
                 exist = true;
+                cout << "----- product already exists -----" << endl;
                 break;
             }
         }
@@ -153,7 +153,7 @@ void Crud::c_reate(int data, int loop, bool exist)
 }
 
 
-void Crud::r_ead(int data, int loop, bool exist)
+void Crud::read(int data, int loop, bool exist)
 {
     if(data == 1)
     {
@@ -208,6 +208,7 @@ void Crud::r_ead(int data, int loop, bool exist)
                 {
                     if(customers[c].get_customerid() == bills[b].get_customerid())
                     {
+                        exist = true;
                         cout << "**** SUBTOTAL/TOTAL >>>> $" << bills[b].get_total() << endl;
                         cout << "     CASH: $" << bills[b].get_cash() << endl;
                         cout << "     CHANGE: $" << bills[b].get_change() << endl;
@@ -216,7 +217,6 @@ void Crud::r_ead(int data, int loop, bool exist)
                         cout << "DEAR CUSTOMER: " << customers[c].get_name() << " (" << bills[b].get_customerid() << ")" << endl;
                         cout << "EARNED POINTS: " << bills[b].get_points() << endl;
                         cout << "***** THANKS FOR YOUR PURCHASE *****" << endl;
-                        exist = true;
                         break;
                     }
                 }
@@ -228,44 +228,70 @@ void Crud::r_ead(int data, int loop, bool exist)
 }
 
 
-void Crud::u_pdate(int data, int loop, bool exist)
+void Crud::update(int data, int loop, bool exist)
 {
     if(data == 1)
     {
         customer.set_customerid();
-        for(int c=0; c<customers.size(); c++)
+        for(int a=0; a<customers.size(); a++)
         {
-            if(customer.get_customerid() == customers[c].get_customerid())
+            if(customer.get_customerid() == customers[a].get_customerid())
             {
-                exist = true;
                 old = customer.get_name();
                 customer.set_name();
                 customer.set_customerid();
-                customer.set_date();
-                customer.set_increasepoints(customers[c].get_points(), 0);
-                customers[c] = customer;
-                cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
+                for(int b=0; b<customers.size(); b++)
+                {
+                    if((customer.get_customerid() == customers[b].get_customerid())
+                        && (customer.get_customerid() != customers[a].get_customerid()))
+                    {
+                        exist = true;
+                        cout << "----- customer already exists -----" << endl;
+                        break;
+                    }
+                }
+                if(!exist)
+                {
+                    customer.set_date();
+                    customer.set_increasepoints(customers[a].get_points(), 0);
+                    customers[a] = customer;
+                    cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
+                }
+                exist = true;
                 break;
             }
         }
     }
     else if(data == 2)
     {
-        int product_number = 1;
         product.set_productid();
-        for(int p=0; p<products.size(); p++)
+        for(int a=0; a<products.size(); a++)
         {
-            if(product.get_productid() == products[p].get_productid())
+            if(product.get_productid() == products[a].get_productid())
             {
                 old = product.get_name();
                 product.set_name();
                 product.set_productid();
-                product.set_price();
-                product.set_stock();
-                product.set_points();
-                product.set_date();
-                products[p] = product;
-                cout << "----- product '" << old << "' updated to '" << product.get_name() << "' -----" << endl;
+                for(int b=0; b<products.size(); b++)
+                {
+                    if((product.get_productid() == products[b].get_productid())
+                        && (product.get_productid() != products[a].get_productid()))
+                    {
+                        exist = true;
+                        cout << "----- product already exists -----" << endl;
+                        break;
+                    }
+                }
+                if(!exist)
+                {
+                    product.set_price();
+                    product.set_stock();
+                    product.set_points();
+                    product.set_date();
+                    products[a] = product;
+                    cout << "----- product '" << old << "' updated to '" << product.get_name() << "' -----" << endl;
+                }
+                exist = true;
                 break;
             }
         }

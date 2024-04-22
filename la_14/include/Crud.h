@@ -14,9 +14,9 @@ class Crud : public Customer, Product, Bill
     public:
         Crud();
         virtual ~Crud();
-        void c_reate(int, int, bool);
-        void r_ead(int, int, bool);
-        void u_pdate(int, int, bool);
+        void create(int, int, bool);
+        void read(int, int, bool);
+        void update(int, int, bool);
         void d_elete(int, int, bool);
         void not_founded(bool);
     private:
