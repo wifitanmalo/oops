@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "Crud.h"
-#include <vector>
 using namespace std;
 
 
@@ -13,7 +12,7 @@ class Menu : public Crud
         Menu();
         ~Menu();
         void menu();
-        void crud_menu(int);
+        void crud_menu(int, int, bool);
     private:
        int data, option;
 };

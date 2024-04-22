@@ -3,7 +3,6 @@
 
 
 #include <iostream>
-#include <vector>
 #include "Customer.h"
 #include "Product.h"
 #include "Bill.h"
@@ -15,12 +14,14 @@ class Crud : public Customer, Product, Bill
     public:
         Crud();
         virtual ~Crud();
-        void create(int);
-        void rudy(int, int);
+        void c_reate(int, int, bool);
+        void r_ead(int, int, bool);
+        void u_pdate(int, int, bool);
+        void d_elete(int, int, bool);
+        void not_founded(bool);
     private:
-        int option, loop=1;
+        int option;
         string old, deleted;
-        bool exist=false;
 };
 
 

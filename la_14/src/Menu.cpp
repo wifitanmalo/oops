@@ -22,7 +22,7 @@ void Menu::menu()
     cout<<"\nSelect the data type to operate on: "; cin >> data;
     if((data==1) || (data==2) || (data==3))
     {
-        crud_menu(data);
+        crud_menu(data, 1, false);
     }
     else
     {
@@ -31,7 +31,7 @@ void Menu::menu()
 }
 
 
-void Menu::crud_menu(int data)
+void Menu::crud_menu(int data, int loop, bool exist)
 {
     system("cls");
     cout << "1. Create" << endl;
@@ -39,16 +39,13 @@ void Menu::crud_menu(int data)
     cout << "3. Update" << endl;
     cout << "4. Delete" << endl;
     cout << "\nSelect your choice: "; cin >> option;
-    if(option==1)
+    system("cls");
+    switch(option)
     {
-        create(data);
-    }
-    else if((option==2) || (option==3) || (option==4))
-    {
-        rudy(data, option);
-    }
-    else
-    {
-        cout << "----- See you space, cowboy -----\n"; exit(0);
+        case 1: c_reate(data, loop, exist); break;
+        case 2: r_ead(data, loop, exist); break;
+        case 3: u_pdate(data, loop, exist); break;
+        case 4: d_elete(data, loop, exist); break;
+        default: cout << "----- See you space, cowboy -----\n"; exit(0); break;
     }
 }
