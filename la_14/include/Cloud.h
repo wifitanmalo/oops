@@ -1,5 +1,6 @@
 #ifndef CLOUD_H
 #define CLOUD_H
+
 #include<iostream>
 #include<vector>
 using namespace std;

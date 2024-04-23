@@ -33,4 +33,5 @@ class Bill : public Cloud
         vector<Bill> bills, bought_products;
 };
 
+
 #endif // BILL_H

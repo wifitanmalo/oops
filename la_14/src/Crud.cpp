@@ -1,7 +1,9 @@
 #include "Crud.h"
 
+
 Bill bill;
 Bill bought;
+
 
 Crud::Crud()
 {
@@ -21,90 +23,91 @@ void Crud::create(int data, int loop, bool exist)
     {
         case 1: Customer::create(exist); break;
         case 2: Product::create(exist); break;
-    }
-    if(data == 3) // create a BILL --------------------------------------------------------------------------------
-    {
-        bill.set_customerid();
-        for(int c=0; c<customers.size(); c++)
+        case 3:
         {
-            if(bill.get_customerid() == customers[c].get_customerid())
+            bill.set_customerid();
+            for(int c=0; c<customers.size(); c++)
             {
-                bill.set_billy();
-                bought.set_billy();
-                bill.set_total(0, 0, 0);
-                bill.set_totalpoints(0, 0, 0);
-                while(loop == 1)
+                if(bill.get_customerid() == customers[c].get_customerid())
                 {
-                    system("cls");
-                    cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                    bought.set_productid();
-                    for(int p=0; p<products.size(); p++)
+                    bill.set_billy();
+                    bought.set_billy();
+                    bill.set_total(0, 0, 0);
+                    bill.set_totalpoints(0, 0, 0);
+                    while(loop == 1)
                     {
-                        if(bought.get_productid() == products[p].get_productid())
+                        system("cls");
+                        exist = false;
+                        cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
+                        bought.set_productid();
+                        for(int p=0; p<products.size(); p++)
                         {
-                            bought.set_amount();
-                            if(bought.get_amount() > products[p].get_stock())
+                            if(bought.get_productid() == products[p].get_productid())
                             {
-                                cout << "----- exceeds stock -----" << endl;
-                            }
-                            else
-                            {
-                                system("cls");
-                                bought.set_productnumber(1, bought.get_productnumber());
-                                bill.set_productnumber(1, bought.get_productnumber());
-                                bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
-                                bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
-                                products[p].set_reduce(products[p].get_stock(), bought.get_amount());
-                                bought_products.push_back(bought);
-                                cout << "Want to do add something else?" << endl;
-                                cout << "1. Yes" << endl;
-                                cout << "0. No" << endl << endl;
-                                cout << "Select your choice: "; cin >> option;
-                                switch(option)
+                                bought.set_amount();
+                                if(bought.get_amount() > products[p].get_stock())
                                 {
-                                    case 1: break;
-                                    default:
-                                    {
-                                        while(true)
-                                        {
-                                            bill.set_cash();
-                                            bill.set_change(bill.get_cash(), bill.get_total());
-                                            if(bill.get_change() < 0)
-                                            {
-                                                cout << "----- not enough cash -----" << endl;
-                                            }
-                                            else
-                                            {
-                                                bill.set_date();
-                                                bill.set_increasepoints(0, bill.get_points());
-                                                customers[c].set_increasepoints(customers[c].get_points(), bill.get_points());
-                                                bills.push_back(bill);
-                                                cout << "- Bill ID: " << bill.get_billy() << endl;
-                                                cout << "----- purchase completed successfully -----" << endl;
-                                                break;
-                                            }
-                                        }
-                                        loop = 0;
-                                    }; break;
+                                    cout << "----- exceeds stock -----" << endl;
                                 }
+                                else
+                                {
+                                    system("cls");
+                                    bought.set_productnumber(1, bought.get_productnumber());
+                                    bill.set_productnumber(1, bought.get_productnumber());
+                                    bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
+                                    bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
+                                    products[p].set_reduce(products[p].get_stock(), bought.get_amount());
+                                    bought_products.push_back(bought);
+                                    cout << "Want to do add something else?" << endl;
+                                    cout << "1. Yes" << endl;
+                                    cout << "0. No" << endl << endl;
+                                    cout << "Select your choice: "; cin >> option;
+                                    switch(option)
+                                    {
+                                        case 1: break;
+                                        default:
+                                        {
+                                            while(true)
+                                            {
+                                                bill.set_cash();
+                                                bill.set_change(bill.get_cash(), bill.get_total());
+                                                if(bill.get_change() < 0)
+                                                {
+                                                    cout << "----- not enough cash -----" << endl;
+                                                }
+                                                else
+                                                {
+                                                    bill.set_date();
+                                                    bill.set_increasepoints(0, bill.get_points());
+                                                    customers[c].set_increasepoints(customers[c].get_points(), bill.get_points());
+                                                    bills.push_back(bill);
+                                                    cout << "- Bill ID: " << bill.get_billy() << endl;
+                                                    cout << "----- purchase completed successfully -----" << endl;
+                                                    break;
+                                                }
+                                            }
+                                            loop = 0;
+                                        }; break;
+                                    }
+                                }
+                                exist = true;
+                                break;
                             }
-                            exist = true;
-                            break;
+                        }
+                        if(!exist)
+                        {
+                            cout << "----- not founded -----" << endl;
+                            system("pause");
                         }
                     }
-                    if(!exist)
-                    {
-                        cout << "----- not founded -----" << endl;
-                        system("pause");
-                    }
+                    break;
                 }
-                break;
             }
-        }
-        if(!exist)
-        {
-            cout << "----- not founded -----" << endl;
-        }
+            if(!exist)
+            {
+                cout << "----- not founded -----" << endl;
+            }
+        }; break;
     }
 }
 
@@ -115,179 +118,174 @@ void Crud::read(int data, int loop, bool exist)
     {
         case 1: Customer::read(exist); break;
         case 2: Product::read(exist); break;
-    }
-    if(data == 3)
-    {
-        bill.set_number("- Bill ID: ");
-        for(int b=0; b<bills.size(); b++)
+        case 3:
         {
-            if(bill.get_number() == bills[b].get_billy())
+            bill.set_number("- Bill ID: ");
+            for(int b=0; b<bills.size(); b++)
             {
-                for(int p=0; p<products.size(); p++)
+                if(bill.get_number() == bills[b].get_billy())
                 {
-                    for(int bp=0; bp<bought_products.size(); bp++)
+                    for(int p=0; p<products.size(); p++)
                     {
-                        if((bought_products[bp].get_billy() == bills[b].get_billy())
-                            && (bought_products[bp].get_productid() == products[p].get_productid()))
+                        for(int bp=0; bp<bought_products.size(); bp++)
                         {
-                            cout << bought_products[bp].get_productid() << " / " << products[p].get_name() << " / $" << products[p].get_price() << "x" << bought_products[bp].get_amount() << endl;
+                            if((bought_products[bp].get_billy() == bills[b].get_billy())
+                                && (bought_products[bp].get_productid() == products[p].get_productid()))
+                            {
+                                cout << bought_products[bp].get_productid() << " / " << products[p].get_name() << " / $" << products[p].get_price() << "x" << bought_products[bp].get_amount() << endl;
+                            }
                         }
                     }
-                }
-                for(int c=0; c<customers.size(); c++)
-                {
-                    if(customers[c].get_customerid() == bills[b].get_customerid())
+                    for(int c=0; c<customers.size(); c++)
                     {
-                        exist = true;
-                        cout << "**** SUBTOTAL/TOTAL >>>> $" << bills[b].get_total() << endl;
-                        cout << "     CASH: $" << bills[b].get_cash() << endl;
-                        cout << "     CHANGE: $" << bills[b].get_change() << endl;
-                        cout << "------------------------------------" << endl;
-                        cout << "PURCHASE DATE: " << bills[b].get_date() << endl;
-                        cout << "DEAR CUSTOMER: " << customers[c].get_name() << " (" << bills[b].get_customerid() << ")" << endl;
-                        cout << "EARNED POINTS: " << bills[b].get_points() << endl;
-                        cout << "***** THANKS FOR YOUR PURCHASE *****" << endl;
-                        break;
+                        if(customers[c].get_customerid() == bills[b].get_customerid())
+                        {
+                            exist = true;
+                            cout << "**** SUBTOTAL/TOTAL >>>> $" << bills[b].get_total() << endl;
+                            cout << "     CASH: $" << bills[b].get_cash() << endl;
+                            cout << "     CHANGE: $" << bills[b].get_change() << endl;
+                            cout << "------------------------------------" << endl;
+                            cout << "PURCHASE DATE: " << bills[b].get_date() << endl;
+                            cout << "DEAR CUSTOMER: " << customers[c].get_name() << " (" << bills[b].get_customerid() << ")" << endl;
+                            cout << "EARNED POINTS: " << bills[b].get_points() << endl;
+                            cout << "***** THANKS FOR YOUR PURCHASE *****" << endl;
+                            break;
+                        }
                     }
+                    break;
                 }
-                break;
             }
-        }
+        }; break;
     }
 }
 
 
 void Crud::update(int data, int loop, bool exist)
 {
-    if(data == 1)
+    switch(data)
     {
-        Customer::update(exist);
-    }
-    else if(data == 2)
-    {
-        Product::update(exist);
-    }
-    else if(data == 3)
-    {
-        bill.set_number("- Bill ID: ");
-        for(int b=0; b<bills.size(); b++)
+        case 1: Customer::update(exist); break;
+        case 2: Product::update(exist); break;
+        case 3:
         {
-            if(bill.get_number() == bills[b].get_billy())
+            bill.set_number("- Bill ID: ");
+            for(int b=0; b<bills.size(); b++)
             {
-                bill.set_customerid();
-                for(int c=0; c<customers.size(); c++)
+                if(bill.get_number() == bills[b].get_billy())
                 {
-                    if(bill.get_customerid() == customers[c].get_customerid())
+                    bill.set_customerid();
+                    for(int c=0; c<customers.size(); c++)
                     {
-                        bill.set_total(0, 0, 0);
-                        bill.set_totalpoints(0, 0, 0);
-                        for(int l=0; l<bills[b].get_productnumber(); l++)
+                        if(bill.get_customerid() == customers[c].get_customerid())
                         {
-                            for(int d=0; d<bought_products.size(); d++)
+                            bill.set_total(0, 0, 0);
+                            bill.set_totalpoints(0, 0, 0);
+                            for(int l=0; l<bills[b].get_productnumber(); l++)
                             {
-                                if(bought_products[d].get_billy() == bills[b].get_billy())
+                                for(int d=0; d<bought_products.size(); d++)
                                 {
-                                    bought_products.erase(bought_products.begin()+d);
+                                    if(bought_products[d].get_billy() == bills[b].get_billy())
+                                    {
+                                        bought_products.erase(bought_products.begin()+d);
+                                    }
                                 }
                             }
-                        }
-                        while(loop == 1)
-                        {
-                            system("cls");
-                            cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                            bought.set_productid();
-                            for(int p=0; p<products.size(); p++)
+                            while(loop == 1)
                             {
-                                if(bought.get_productid() == products[p].get_productid())
+                                system("cls");
+                                exist = false;
+                                cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
+                                bought.set_productid();
+                                for(int p=0; p<products.size(); p++)
                                 {
-                                    bought.set_amount();
-                                    if(bought.get_amount() > products[p].get_stock())
+                                    if(bought.get_productid() == products[p].get_productid())
                                     {
-                                        cout << "----- exceeds stock -----" << endl;
-                                    }
-                                    else
-                                    {
-                                        system("cls");
-                                        bought.set_productnumber(1, bought.get_productnumber());
-                                        bill.set_productnumber(1, bought.get_productnumber());
-                                        bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
-                                        bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
-                                        products[p].set_reduce(products[p].get_stock(), bought.get_amount());
-                                        bought_products.push_back(bought);
-                                        cout << "Want to do add something else?" << endl;
-                                        cout << "1. Yes" << endl;
-                                        cout << "0. No" << endl << endl;
-                                        cout << "Select your choice: "; cin >> option;
-                                        switch(option)
+                                        bought.set_amount();
+                                        if(bought.get_amount() > products[p].get_stock())
                                         {
-                                            case 1: break;
-                                            default:
-                                            {
-                                                while(true)
-                                                {
-                                                    bill.set_cash();
-                                                    bill.set_change(bill.get_cash(), bill.get_total());
-                                                    if(bill.get_change() < 0)
-                                                    {
-                                                        cout << "----- not enough cash -----" << endl;
-                                                    }
-                                                    else
-                                                    {
-                                                        bill.set_date();
-                                                        bill.set_increasepoints(0, bill.get_points());
-                                                        customers[c].set_increasepoints(customers[c].get_points(), bill.get_points());
-                                                        bills[b] = bill;
-                                                        cout << "----- bill " << bill.get_billy() << "updated successfully -----" << endl;
-                                                        break;
-                                                    }
-                                                }
-                                                loop = 0;
-                                            }; break;
+                                            cout << "----- exceeds stock -----" << endl;
                                         }
+                                        else
+                                        {
+                                            system("cls");
+                                            bought.set_productnumber(1, bought.get_productnumber());
+                                            bill.set_productnumber(1, bought.get_productnumber());
+                                            bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
+                                            bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
+                                            products[p].set_reduce(products[p].get_stock(), bought.get_amount());
+                                            bought_products.push_back(bought);
+                                            cout << "Want to do add something else?" << endl;
+                                            cout << "1. Yes" << endl;
+                                            cout << "0. No" << endl << endl;
+                                            cout << "Select your choice: "; cin >> option;
+                                            switch(option)
+                                            {
+                                                case 1: break;
+                                                default:
+                                                {
+                                                    while(true)
+                                                    {
+                                                        bill.set_cash();
+                                                        bill.set_change(bill.get_cash(), bill.get_total());
+                                                        if(bill.get_change() < 0)
+                                                        {
+                                                            cout << "----- not enough cash -----" << endl;
+                                                        }
+                                                        else
+                                                        {
+                                                            bill.set_date();
+                                                            bill.set_increasepoints(0, bill.get_points());
+                                                            customers[c].set_increasepoints(customers[c].get_points(), bill.get_points());
+                                                            bills[b] = bill;
+                                                            cout << "----- bill " << bill.get_billy() << "updated successfully -----" << endl;
+                                                            break;
+                                                        }
+                                                    }
+                                                    loop = 0;
+                                                }; break;
+                                            }
+                                        }
+                                        exist = true;
+                                        break;
                                     }
-                                    exist = true;
-                                    break;
+                                }
+                                if(!exist)
+                                {
+                                    cout << "----- not founded -----" << endl;
+                                    system("pause");
                                 }
                             }
-                            if(!exist)
-                            {
-                                cout << "----- not founded -----" << endl;
-                                system("pause");
-                            }
+                            break;
                         }
-                        break;
                     }
+                    break;
                 }
-                break;
             }
-        }
+        }; break;
     }
 }
 
 
 void Crud::d_elete(int data, int loop, bool exist)
 {
-    if(data == 1) // customer --------------------------------------------------------------------------------
+    switch(data)
     {
-        Customer::d_elete(exist);
-    }
-    else if(data == 2)
-    {
-        Product::d_elete(exist);
-    }
-    else if(data == 3) // delete
-    {
-        bill.set_number("- Bill ID");
-        for(int b=0; b<bills.size(); b++)
+        case 1: Customer::d_elete(exist); break;
+        case 2: Product::d_elete(exist); break;
+        case 3:
         {
-            if(bill.get_number() == bills[b].get_billy())
+            bill.set_number("- Bill ID");
+            for(int b=0; b<bills.size(); b++)
             {
-                int deleted = bill.get_number();
-                bills.erase(bills.begin()+b);
-                cout << "----- bill #" << deleted << " deleted succesfully -----" << endl;
-                exist = true;
-                break;
+                if(bill.get_number() == bills[b].get_billy())
+                {
+                    int deleted = bill.get_number();
+                    bills.erase(bills.begin()+b);
+                    cout << "----- bill #" << deleted << " deleted succesfully -----" << endl;
+                    exist = true;
+                    break;
+                }
             }
-        }
+        }; break;
     }
 }
