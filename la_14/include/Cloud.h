@@ -1,6 +1,5 @@
 #ifndef CLOUD_H
 #define CLOUD_H
-
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -27,12 +26,15 @@ class Cloud
         string get_name();
         long get_date();
         int get_points();
+        // method
+        void not_founded(bool);
     private:
         string message, name;
         long customer_id, product_id, date;
         int points;
     protected:
         double number;
+        string old, deleted;
 };
 
 

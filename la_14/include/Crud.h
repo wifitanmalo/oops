@@ -1,7 +1,5 @@
 #ifndef CRUD_H
 #define CRUD_H
-
-
 #include <iostream>
 #include "Customer.h"
 #include "Product.h"
@@ -18,10 +16,8 @@ class Crud : public Customer, Product, Bill
         void read(int, int, bool);
         void update(int, int, bool);
         void d_elete(int, int, bool);
-        void not_founded(bool);
     private:
         int option;
-        string old, deleted;
 };
 
 

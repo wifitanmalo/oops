@@ -1,10 +1,7 @@
 #include "Crud.h"
 
-Customer customer;
-Product product;
 Bill bill;
 Bill bought;
-
 
 Crud::Crud()
 {
@@ -20,51 +17,12 @@ Crud::~Crud()
 
 void Crud::create(int data, int loop, bool exist)
 {
-    if(data == 1) // create a CUSTOMER --------------------------------------------------------------------------------
+    switch(data)
     {
-        customer.set_name();
-        customer.set_customerid();
-        for(int c=0; c<customers.size(); c++)
-        {
-            if(customer.get_customerid() == customers[c].get_customerid())
-            {
-                cout << "----- customer already exists -----" << endl;
-                exist = true;
-                break;
-            }
-        }
-        if(!exist)
-        {
-            customer.set_date();
-            customer.set_increasepoints(0, 0);
-            customers.push_back(customer);
-            cout << "----- customer '" << customer.get_name() << "' created succesfully -----" << endl;
-        }
+        case 1: Customer::create(exist); break;
+        case 2: Product::create(exist); break;
     }
-    else if(data == 2) // create a PRODUCT --------------------------------------------------------------------------------
-    {
-        product.set_name();
-        product.set_productid();
-        for(int p=0; p<products.size(); p++)
-        {
-            if(product.get_productid() == products[p].get_productid())
-            {
-                exist = true;
-                cout << "----- product already exists -----" << endl;
-                break;
-            }
-        }
-        if(!exist)
-        {
-            product.set_price();
-            product.set_stock();
-            product.set_points();
-            product.set_date();
-            products.push_back(product);
-            cout << "----- product '" << product.get_name() << "' created succesfully -----" << endl;
-        }
-    }
-    else if(data == 3) // create a BILL --------------------------------------------------------------------------------
+    if(data == 3) // create a BILL --------------------------------------------------------------------------------
     {
         bill.set_customerid();
         for(int c=0; c<customers.size(); c++)
@@ -148,45 +106,17 @@ void Crud::create(int data, int loop, bool exist)
             cout << "----- not founded -----" << endl;
         }
     }
-    loop = 1;
-    exist = false;
 }
 
 
 void Crud::read(int data, int loop, bool exist)
 {
-    if(data == 1)
+    switch(data)
     {
-        customer.set_customerid();
-        for(int c=0; c<customers.size(); c++)
-        {
-            if(customer.get_customerid() == customers[c].get_customerid())
-            {
-                exist = true;
-                cout << "NAME: " << customers[c].get_name() << endl;
-                cout << "BIRTHDAY: " << customers[c].get_date() << endl;
-                cout << "ACCUMULATED POINTS: " << customers[c].get_points() << endl;
-                break;
-            }
-        }
+        case 1: Customer::read(exist); break;
+        case 2: Product::read(exist); break;
     }
-    else if(data == 2)
-    {
-        int product_number = 1;
-        for(int p=0; p<products.size(); p++)
-        {
-            exist = true;
-            cout <<  "---" << product_number++ << "---" << endl;
-            cout << "NAME: " << products[p].get_name()<< endl;
-            cout << "ID: " <<products[p].get_productid()<< endl;
-            cout << "PRICE: $" << products[p].get_price()<< endl;
-            cout << "STOCK AMOUNT: " << products[p].get_stock()<< endl;
-            cout << "PURCHASE POINTS: " << products[p].get_points()<< endl;
-            cout << "EXPIRATION DATE: " << products[p].get_date() << endl << endl;
-
-        }
-    }
-    else if(data == 3)
+    if(data == 3)
     {
         bill.set_number("- Bill ID: ");
         for(int b=0; b<bills.size(); b++)
@@ -224,7 +154,6 @@ void Crud::read(int data, int loop, bool exist)
             }
         }
     }
-    not_founded(exist);
 }
 
 
@@ -232,69 +161,11 @@ void Crud::update(int data, int loop, bool exist)
 {
     if(data == 1)
     {
-        customer.set_customerid();
-        for(int a=0; a<customers.size(); a++)
-        {
-            if(customer.get_customerid() == customers[a].get_customerid())
-            {
-                old = customer.get_name();
-                customer.set_name();
-                customer.set_customerid();
-                for(int b=0; b<customers.size(); b++)
-                {
-                    if((customer.get_customerid() == customers[b].get_customerid())
-                        && (customer.get_customerid() != customers[a].get_customerid()))
-                    {
-                        exist = true;
-                        cout << "----- customer already exists -----" << endl;
-                        break;
-                    }
-                }
-                if(!exist)
-                {
-                    customer.set_date();
-                    customer.set_increasepoints(customers[a].get_points(), 0);
-                    customers[a] = customer;
-                    cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
-                }
-                exist = true;
-                break;
-            }
-        }
+        Customer::update(exist);
     }
     else if(data == 2)
     {
-        product.set_productid();
-        for(int a=0; a<products.size(); a++)
-        {
-            if(product.get_productid() == products[a].get_productid())
-            {
-                old = product.get_name();
-                product.set_name();
-                product.set_productid();
-                for(int b=0; b<products.size(); b++)
-                {
-                    if((product.get_productid() == products[b].get_productid())
-                        && (product.get_productid() != products[a].get_productid()))
-                    {
-                        exist = true;
-                        cout << "----- product already exists -----" << endl;
-                        break;
-                    }
-                }
-                if(!exist)
-                {
-                    product.set_price();
-                    product.set_stock();
-                    product.set_points();
-                    product.set_date();
-                    products[a] = product;
-                    cout << "----- product '" << old << "' updated to '" << product.get_name() << "' -----" << endl;
-                }
-                exist = true;
-                break;
-            }
-        }
+        Product::update(exist);
     }
     else if(data == 3)
     {
@@ -391,7 +262,6 @@ void Crud::update(int data, int loop, bool exist)
             }
         }
     }
-    not_founded(exist);
 }
 
 
@@ -399,32 +269,11 @@ void Crud::d_elete(int data, int loop, bool exist)
 {
     if(data == 1) // customer --------------------------------------------------------------------------------
     {
-        customer.set_customerid();
-        for(int c=0; c<customers.size(); c++)
-        {
-            if(customer.get_customerid() == customers[c].get_customerid())
-            {
-                exist = true;
-                deleted = customers[c].get_name();
-                customers.erase(customers.begin()+c);
-                cout << "----- customer '" << deleted << "' deleted succesfully -----" << endl;
-                break;
-            }
-        }
+        Customer::d_elete(exist);
     }
     else if(data == 2)
     {
-        product.set_productid();
-        for(int p=0; p<products.size(); p++)
-        {
-            if(product.get_productid() == products[p].get_productid())
-            {
-                products.erase(products.begin()+p);
-                cout << "----- product '" << products[p].get_name() << "' deleted succesfully -----" << endl;
-                exist = true;
-                break;
-            }
-        }
+        Product::d_elete(exist);
     }
     else if(data == 3) // delete
     {
@@ -440,15 +289,5 @@ void Crud::d_elete(int data, int loop, bool exist)
                 break;
             }
         }
-    }
-    not_founded(exist);
-}
-
-
-void Crud::not_founded(bool exist)
-{
-    if(!exist)
-    {
-        cout << "----- not founded -----" << endl;
     }
 }

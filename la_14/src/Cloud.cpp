@@ -112,3 +112,12 @@ int Cloud::get_points()
 {
     return points;
 }
+
+
+void Cloud::not_founded(bool exist)
+{
+    if(!exist)
+    {
+        cout << "----- not founded -----" << endl;
+    }
+}
