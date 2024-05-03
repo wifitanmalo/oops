@@ -16,6 +16,18 @@ Customer::~Customer()
 }
 
 
+void Customer::set_name()
+{
+    Cloud::set_name("- Customer name: ");
+}
+
+
+void Customer::set_date()
+{
+    Cloud::set_date("- Birthday: ");
+}
+
+
 void Customer::create(bool exist)
 {
     customer.set_name();

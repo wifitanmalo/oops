@@ -15,6 +15,12 @@ Product::~Product()
 }
 
 
+void Product::set_name()
+{
+    Cloud::set_name("- Product name: ");
+}
+
+
 void Product::set_price()
 {
     set_number("- Price: $");
@@ -38,6 +44,12 @@ void Product::set_stock()
 int Product::get_stock()
 {
     return stock;
+}
+
+
+void Product::set_date()
+{
+    Cloud::set_date("- Expiration date: ");
 }
 
 

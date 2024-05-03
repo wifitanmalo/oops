@@ -11,6 +11,10 @@ class Customer : public Cloud
     public:
         Customer();
         virtual ~Customer();
+        // setters
+        void set_name();
+        void set_date();
+
         void create(bool);
         void read(bool);
         void update(bool);

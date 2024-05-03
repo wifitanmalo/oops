@@ -12,12 +12,14 @@ class Product : public Cloud
         Product();
         ~Product();
         // setters
-        void set_stock();
+        void set_name();
         void set_price();
+        virtual void set_stock();
+        void set_date();
         void set_reduce(int, int);
         // getters
-        int get_stock();
         float get_price();
+        int get_stock();
         // CRUD methods
         void create(bool);
         void read(bool);

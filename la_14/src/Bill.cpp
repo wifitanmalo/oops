@@ -13,6 +13,18 @@ Bill::~Bill()
 }
 
 
+void Bill::set_billy()
+{
+    billy++;
+}
+
+
+int Bill::get_billy()
+{
+    return billy;
+}
+
+
 void Bill::set_amount()
 {
     set_number("- Amount to buy: ");
@@ -75,13 +87,7 @@ float Bill::get_change()
 }
 
 
-void Bill::set_billy()
+void Bill::set_date()
 {
-    billy++;
-}
-
-
-int Bill::get_billy()
-{
-    return billy;
+    Cloud::set_date("Purchase date: ");
 }

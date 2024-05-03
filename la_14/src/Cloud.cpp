@@ -13,6 +13,19 @@ Cloud::~Cloud()
 }
 
 
+void Cloud::set_name(string message)
+{
+    fflush(stdin);
+    cout << message; getline(cin, name);
+}
+
+
+string Cloud::get_name()
+{
+    return name;
+}
+
+
 void Cloud::set_number(string message)
 {
     while(true)
@@ -63,22 +76,9 @@ long Cloud::get_productid()
 }
 
 
-void Cloud::set_name()
+void Cloud::set_date(string message)
 {
-    fflush(stdin);
-    cout << "- Name: "; getline(cin, name);
-}
-
-
-string Cloud::get_name()
-{
-    return name;
-}
-
-
-void Cloud::set_date()
-{
-    set_number("- Date: ");
+    set_number(message);
     date = number;
 }
 

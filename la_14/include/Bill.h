@@ -19,6 +19,7 @@ class Bill : public Cloud
         void set_total(float, float, int);
         void set_cash();
         void set_change(float, float);
+        void set_date();
         // get setters
         int get_billy();
         int get_amount();
