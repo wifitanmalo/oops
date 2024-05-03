@@ -13,13 +13,12 @@ class Product : public Cloud
         ~Product();
         // setters
         void set_name();
+        void set_id();
         void set_price();
-        virtual void set_stock();
+        void set_amount();
         void set_date();
-        void set_reduce(int, int);
         // getters
         float get_price();
-        int get_stock();
         // CRUD methods
         void create(bool);
         void read(bool);
@@ -27,7 +26,6 @@ class Product : public Cloud
         void d_elete(bool);
     private:
         float price;
-        int stock;
     protected:
         vector<Product> products;
 };

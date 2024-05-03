@@ -13,6 +13,7 @@ class Customer : public Cloud
         virtual ~Customer();
         // setters
         void set_name();
+        void set_id();
         void set_date();
 
         void create(bool);

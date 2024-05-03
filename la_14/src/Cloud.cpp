@@ -43,36 +43,35 @@ void Cloud::set_number(string message)
 }
 
 
-
 double Cloud::get_number()
 {
     return number;
 }
 
 
-void Cloud::set_customerid()
+void Cloud::set_amount(string message)
 {
-    set_number("- Customer ID: ");
-    customer_id = number;
+    set_number(message);
+    amount = number;
 }
 
 
-long Cloud::get_customerid()
+int Cloud::get_amount()
 {
-    return customer_id;
+    return amount;
 }
 
 
-void Cloud::set_productid()
+void Cloud::set_id(string message)
 {
-    set_number("- Product ID: ");
-    product_id = number;
+    set_number(message);
+    id = number;
 }
 
 
-long Cloud::get_productid()
+long Cloud::get_id()
 {
-    return product_id;
+    return id;
 }
 
 
@@ -105,6 +104,12 @@ void Cloud::set_totalpoints(int current_points, int earned, int booster)
 void Cloud::set_increasepoints(int customer_points, int total)
 {
     points = customer_points+total;
+}
+
+
+void Cloud::stock_reduce(int stock_amount, int amount_bought)
+{
+    amount = stock_amount-amount_bought;
 }
 
 

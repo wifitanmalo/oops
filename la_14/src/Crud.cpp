@@ -25,10 +25,10 @@ void Crud::create(int data, int loop, bool exist)
         case 2: Product::create(exist); break;
         case 3:
         {
-            bill.set_customerid();
+            bill.set_id();
             for(int c=0; c<customers.size(); c++)
             {
-                if(bill.get_customerid() == customers[c].get_customerid())
+                if(bill.get_id() == customers[c].get_id())
                 {
                     bill.set_billy();
                     bought.set_billy();
@@ -39,13 +39,13 @@ void Crud::create(int data, int loop, bool exist)
                         system("cls");
                         exist = false;
                         cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                        bought.set_productid();
+                        bought.set_id();
                         for(int p=0; p<products.size(); p++)
                         {
-                            if(bought.get_productid() == products[p].get_productid())
+                            if(bought.get_id() == products[p].get_id())
                             {
                                 bought.set_amount();
-                                if(bought.get_amount() > products[p].get_stock())
+                                if(bought.get_amount() > products[p].get_amount())
                                 {
                                     cout << "----- exceeds stock -----" << endl;
                                 }
@@ -56,7 +56,7 @@ void Crud::create(int data, int loop, bool exist)
                                     bill.set_productnumber(1, bought.get_productnumber());
                                     bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
                                     bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
-                                    products[p].set_reduce(products[p].get_stock(), bought.get_amount());
+                                    products[p].stock_reduce(products[p].get_amount(), bought.get_amount());
                                     bought_products.push_back(bought);
                                     cout << "Want to do add something else?" << endl;
                                     cout << "1. Yes" << endl;
@@ -130,15 +130,15 @@ void Crud::read(int data, int loop, bool exist)
                         for(int bp=0; bp<bought_products.size(); bp++)
                         {
                             if((bought_products[bp].get_billy() == bills[b].get_billy())
-                                && (bought_products[bp].get_productid() == products[p].get_productid()))
+                                && (bought_products[bp].get_id() == products[p].get_id()))
                             {
-                                cout << bought_products[bp].get_productid() << " / " << products[p].get_name() << " / $" << products[p].get_price() << "x" << bought_products[bp].get_amount() << endl;
+                                cout << bought_products[bp].get_id() << " / " << products[p].get_name() << " / $" << products[p].get_price() << "x" << bought_products[bp].get_amount() << endl;
                             }
                         }
                     }
                     for(int c=0; c<customers.size(); c++)
                     {
-                        if(customers[c].get_customerid() == bills[b].get_customerid())
+                        if(customers[c].get_id() == bills[b].get_id())
                         {
                             exist = true;
                             cout << "**** SUBTOTAL/TOTAL >>>> $" << bills[b].get_total() << endl;
@@ -146,7 +146,7 @@ void Crud::read(int data, int loop, bool exist)
                             cout << "     CHANGE: $" << bills[b].get_change() << endl;
                             cout << "------------------------------------" << endl;
                             cout << "PURCHASE DATE: " << bills[b].get_date() << endl;
-                            cout << "DEAR CUSTOMER: " << customers[c].get_name() << " (" << bills[b].get_customerid() << ")" << endl;
+                            cout << "DEAR CUSTOMER: " << customers[c].get_name() << " (" << bills[b].get_id() << ")" << endl;
                             cout << "EARNED POINTS: " << bills[b].get_points() << endl;
                             cout << "***** THANKS FOR YOUR PURCHASE *****" << endl;
                             break;
@@ -173,10 +173,10 @@ void Crud::update(int data, int loop, bool exist)
             {
                 if(bill.get_number() == bills[b].get_billy())
                 {
-                    bill.set_customerid();
+                    bill.set_id();
                     for(int c=0; c<customers.size(); c++)
                     {
-                        if(bill.get_customerid() == customers[c].get_customerid())
+                        if(bill.get_id() == customers[c].get_id())
                         {
                             bill.set_total(0, 0, 0);
                             bill.set_totalpoints(0, 0, 0);
@@ -195,13 +195,13 @@ void Crud::update(int data, int loop, bool exist)
                                 system("cls");
                                 exist = false;
                                 cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                                bought.set_productid();
+                                bought.set_id();
                                 for(int p=0; p<products.size(); p++)
                                 {
-                                    if(bought.get_productid() == products[p].get_productid())
+                                    if(bought.get_id() == products[p].get_id())
                                     {
                                         bought.set_amount();
-                                        if(bought.get_amount() > products[p].get_stock())
+                                        if(bought.get_amount() > products[p].get_amount())
                                         {
                                             cout << "----- exceeds stock -----" << endl;
                                         }
@@ -212,7 +212,7 @@ void Crud::update(int data, int loop, bool exist)
                                             bill.set_productnumber(1, bought.get_productnumber());
                                             bill.set_total(bill.get_total(), products[p].get_price(), bought.get_amount());
                                             bill.set_totalpoints(bill.get_points(), products[p].get_points(), bought.get_amount());
-                                            products[p].set_reduce(products[p].get_stock(), bought.get_amount());
+                                            products[p].stock_reduce(products[p].get_amount(), bought.get_amount());
                                             bought_products.push_back(bought);
                                             cout << "Want to do add something else?" << endl;
                                             cout << "1. Yes" << endl;

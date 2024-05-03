@@ -13,6 +13,7 @@ class Bill : public Cloud
         Bill();
         ~Bill();
         // setters
+        void set_id();
         void set_billy();
         void set_amount();
         void set_productnumber(int, int);
@@ -22,13 +23,12 @@ class Bill : public Cloud
         void set_date();
         // get setters
         int get_billy();
-        int get_amount();
         int get_productnumber();
         float get_total();
         float get_cash();
         float get_change();
     private:
-        int billy=0, amount, product_number;
+        int billy=0, product_number;
         float total, cash, change;
     protected:
         vector<Bill> bills, bought_products;
