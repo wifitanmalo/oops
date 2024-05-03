@@ -25,7 +25,7 @@ void Crud::create(int data, int loop, bool exist)
         case 2: Product::create(exist); break;
         case 3:
         {
-            bill.set_id();
+            bill.set_id("- Customer ID: ");
             for(int c=0; c<customers.size(); c++)
             {
                 if(bill.get_id() == customers[c].get_id())
@@ -39,7 +39,7 @@ void Crud::create(int data, int loop, bool exist)
                         system("cls");
                         exist = false;
                         cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                        bought.set_id();
+                        bought.set_id("- Product ID: ");
                         for(int p=0; p<products.size(); p++)
                         {
                             if(bought.get_id() == products[p].get_id())
@@ -120,10 +120,10 @@ void Crud::read(int data, int loop, bool exist)
         case 2: Product::read(exist); break;
         case 3:
         {
-            bill.set_number("- Bill ID: ");
+            bill.set_id("- Bill ID: ");
             for(int b=0; b<bills.size(); b++)
             {
-                if(bill.get_number() == bills[b].get_billy())
+                if(bill.get_id() == bills[b].get_billy())
                 {
                     for(int p=0; p<products.size(); p++)
                     {
@@ -168,12 +168,12 @@ void Crud::update(int data, int loop, bool exist)
         case 2: Product::update(exist); break;
         case 3:
         {
-            bill.set_number("- Bill ID: ");
+            bill.set_id("- Bill ID: ");
             for(int b=0; b<bills.size(); b++)
             {
-                if(bill.get_number() == bills[b].get_billy())
+                if(bill.get_id() == bills[b].get_billy())
                 {
-                    bill.set_id();
+                    bill.set_id("- Customer ID: ");
                     for(int c=0; c<customers.size(); c++)
                     {
                         if(bill.get_id() == customers[c].get_id())
@@ -195,7 +195,7 @@ void Crud::update(int data, int loop, bool exist)
                                 system("cls");
                                 exist = false;
                                 cout << "Hi, " << customers[c].get_name() << "! What you wanna buy?" << endl;
-                                bought.set_id();
+                                bill.set_id("- Product ID: ");
                                 for(int p=0; p<products.size(); p++)
                                 {
                                     if(bought.get_id() == products[p].get_id())
@@ -274,10 +274,10 @@ void Crud::d_elete(int data, int loop, bool exist)
         case 2: Product::d_elete(exist); break;
         case 3:
         {
-            bill.set_number("- Bill ID");
+            bill.set_id("- Bill ID: ");
             for(int b=0; b<bills.size(); b++)
             {
-                if(bill.get_number() == bills[b].get_billy())
+                if(bill.get_id() == bills[b].get_billy())
                 {
                     int deleted = bill.get_number();
                     bills.erase(bills.begin()+b);

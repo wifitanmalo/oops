@@ -13,7 +13,7 @@ class Bill : public Cloud
         Bill();
         ~Bill();
         // setters
-        void set_id();
+        void set_id(string);
         void set_billy();
         void set_amount();
         void set_productnumber(int, int);

@@ -42,7 +42,7 @@ float Product::get_price()
 
 void Product::set_amount()
 {
-    Cloud::set_number("- Stock amount: ");
+    Cloud::set_amount("- Stock amount: ");
 }
 
 

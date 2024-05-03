@@ -13,9 +13,9 @@ Bill::~Bill()
 }
 
 
-void Bill::set_id()
+void Bill::set_id(string message)
 {
-    Cloud::set_id("- Bill ID: ");
+    Cloud::set_id(message);
 }
 
 
