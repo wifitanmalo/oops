@@ -33,7 +33,7 @@ void Cloud::set_number(string message)
         cout << message; cin >> number;
         if(number < 1)
         {
-            cout << "----- negative numbers not allowed" << endl;
+            cout << "----- negative numbers not allowed -----" << endl;
         }
         else
         {
@@ -65,11 +65,11 @@ string Cloud::get_id()
 void Cloud::set_amount(string message)
 {
     set_number(message);
-    amount = number;
+    amount = to_string(static_cast<int>(number));
 }
 
 
-int Cloud::get_amount()
+string Cloud::get_amount()
 {
     return amount;
 }
@@ -77,8 +77,46 @@ int Cloud::get_amount()
 
 void Cloud::set_date(string message)
 {
-    set_number(message);
-    date = to_string(static_cast<long>(number));
+    int dd, mm, yyyy, limit;
+    while(true)
+    {
+        cout << message << endl;
+        set_number("DD: "); dd = number;
+        set_number("MM: "); mm = number;
+        set_number("YYYY: "); yyyy = number;
+        switch(mm)
+        {
+            case 1: limit = 31; break;
+            case 2:
+            {
+                limit = 28;
+                if(yyyy%4 == 0)
+                {
+                    limit = 29;
+                }
+            }; break;
+            case 3: limit = 31; break;
+            case 4: limit = 30; break;
+            case 5: limit = 31; break;
+            case 6: limit = 30; break;
+            case 7: limit = 31; break;
+            case 8: limit = 31; break;
+            case 9: limit = 30; break;
+            case 10: limit = 31; break;
+            case 11: limit = 30; break;
+            case 12: limit = 31; break;
+        }
+        if((dd > limit) || (mm > 12))
+        {
+            system("cls");
+            cout << "----- invalid date -----" << endl;
+        }
+        else
+        {
+            date = to_string(dd) + to_string(mm) + to_string(yyyy);
+            break;
+        }
+    }
 }
 
 
@@ -119,19 +157,7 @@ int Cloud::get_points()
 }
 
 
-void Cloud::set_exist(bool value)
-{
-    exist = value;
-}
-
-
-bool Cloud::get_exist()
-{
-    return exist;
-}
-
-
-void Cloud::existence(string id, string file)
+void Cloud::set_exist(string id, string file)
 {
     exist = false;
     ifstream read(file);
@@ -144,6 +170,12 @@ void Cloud::existence(string id, string file)
         }
     }
     read.close();
+}
+
+
+bool Cloud::get_exist()
+{
+    return exist;
 }
 
 

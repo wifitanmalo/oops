@@ -38,8 +38,7 @@ void Customer::create(bool exist)
 {
     customer.set_name();
     customer.set_id();
-    searched = customer.get_id();
-    customer.existence(searched, "customers.csv");
+    customer.set_exist(customer.get_id(), "customers.csv");
     if(customer.get_exist())
     {
         cout << "----- customer already exists -----" << endl;
@@ -65,7 +64,7 @@ void Customer::create(bool exist)
 void Customer::read(bool exist)
 {
     customer.set_id();
-    customer.existence(customer.get_id(), "customers.csv");
+    customer.set_exist(customer.get_id(), "customers.csv");
     if(customer.get_exist())
     {
         ifstream file("customers.csv", ios::in);
@@ -77,12 +76,12 @@ void Customer::read(bool exist)
                 getline(customers, id,',');
                 getline(customers, name,',');
                 getline(customers, date,',');
-                //getline(customers, cedula,',');
+                getline(customers, str_points,',');
                 if(customer.get_id().compare(id) == 0)
                 {
                     cout << "NAME: " << name << endl;
                     cout << "BIRTHDAY: " << date << endl;
-                    cout << "ACCUMULATED POINTS: " << endl;
+                    cout << "ACCUMULATED POINTS: " << str_points << endl;
                     break;
                 }
             }
@@ -103,7 +102,7 @@ void Customer::read(bool exist)
 void Customer::update(bool exist)
 {
     customer.set_id();
-    customer.existence(customer.get_id(), "customers.csv");
+    customer.set_exist(customer.get_id(), "customers.csv");
     if(customer.get_exist())
     {
         ifstream original("customers.csv");
@@ -116,14 +115,25 @@ void Customer::update(bool exist)
                 getline(update, id, ',');
                 getline(update, name, ',');
                 getline(update, date, ',');
+                getline(update, str_points, ',');
                 if(customer.get_id() == id)
                 {
                     old = name;
                     customer.set_name();
                     customer.set_id();
-                    customer.set_date();
-                    customer.set_increasepoints(0, 0);
-                    temporary << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
+                    customer.set_exist(customer.get_id(), "customers.csv");
+                    if(customer.get_exist() && customer.get_id() != id)
+                    {
+                        temporary << line << endl;
+                        cout << "----- customer already exists -----" << endl;
+                    }
+                    else
+                    {
+                        customer.set_date();
+                        customer.set_increasepoints(0, 0);
+                        temporary << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
+                        cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
+                    }
                 }
                 else
                 {
@@ -134,11 +144,10 @@ void Customer::update(bool exist)
             temporary.close();
             remove("customers.csv");
             rename("temporary.csv", "customers.csv");
-            cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' succesfully -----" << endl;
         }
         else
         {
-            cout << "----- .csv error -----" << endl;
+            cout << "----- customers.csv error -----" << endl;
         }
     }
     else
@@ -151,7 +160,7 @@ void Customer::update(bool exist)
 void Customer::d_elete(bool exist)
 {
     customer.set_id();
-    customer.existence(customer.get_id(), "customers.csv");
+    customer.set_exist(customer.get_id(), "customers.csv");
     if(customer.get_exist())
     {
         ifstream original("customers.csv");
@@ -163,7 +172,6 @@ void Customer::d_elete(bool exist)
                 stringstream to_delete(line);
                 getline(to_delete, id, ',');
                 getline(to_delete, name, ',');
-                getline(to_delete, date, ',');
                 if(customer.get_id() == id)
                 {
                     deleted = name;
@@ -181,7 +189,7 @@ void Customer::d_elete(bool exist)
         }
         else
         {
-            cout << "----- .csv error -----" << endl;
+            cout << "----- customers.csv error -----" << endl;
         }
     }
     else
