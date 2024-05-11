@@ -2,6 +2,8 @@
 #define CLOUD_H
 
 #include<iostream>
+#include <fstream>
+#include <sstream>
 #include<vector>
 using namespace std;
 
@@ -24,19 +26,23 @@ class Cloud
         // getters
         string get_name();
         double get_number();
-        long get_id();
-        long get_date();
+        string get_id();
+        string get_date();
         int get_amount();
         int get_points();
         // method
+        string codigo, name, id, date, searched;
         void not_founded(bool);
+        void set_exist(bool);
+        bool get_exist();
+        void existence(string, string);
     private:
-        string message, name;
-        long id, date;
+        string message;
         int amount, points;
+        bool exist;
     protected:
         double number;
-        string old, deleted;
+        string line, old, deleted;
 };
 
 

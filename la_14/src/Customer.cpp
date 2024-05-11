@@ -38,21 +38,26 @@ void Customer::create(bool exist)
 {
     customer.set_name();
     customer.set_id();
-    for(int c=0; c<customers.size(); c++)
+    searched = customer.get_id();
+    customer.existence(searched, "customers.csv");
+    if(customer.get_exist())
     {
-        if(customer.get_id() == customers[c].get_id())
-        {
-            cout << "----- customer already exists -----" << endl;
-            exist = true;
-            break;
-        }
+        cout << "----- customer already exists -----" << endl;
     }
-    if(!exist)
+    else
     {
-        customer.set_date();
-        customer.set_increasepoints(0, 0);
-        customers.push_back(customer);
-        cout << "----- customer '" << customer.get_name() << "' created succesfully -----" << endl;
+        ofstream file("customers.csv", ios::app);
+        if (file.is_open())
+        {
+            customer.set_date();
+            customer.set_increasepoints(0, 0);
+            file << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
+            cout << "----- customer '" << customer.get_name() << "' created succesfully -----" << endl;
+        }
+        else
+        {
+            cout << "----- customers.csv error -----" << endl;
+        }
     }
 }
 
@@ -60,69 +65,127 @@ void Customer::create(bool exist)
 void Customer::read(bool exist)
 {
     customer.set_id();
-    for(int c=0; c<customers.size(); c++)
+    customer.existence(customer.get_id(), "customers.csv");
+    if(customer.get_exist())
     {
-        if(customer.get_id() == customers[c].get_id())
+        ifstream file("customers.csv", ios::in);
+        if(file.is_open())
         {
-            exist = true;
-            cout << "NAME: " << customers[c].get_name() << endl;
-            cout << "BIRTHDAY: " << customers[c].get_date() << endl;
-            cout << "ACCUMULATED POINTS: " << customers[c].get_points() << endl;
-            break;
+            while(getline(file, line))
+            {
+                stringstream customers(line);
+                getline(customers, id,',');
+                getline(customers, name,',');
+                getline(customers, date,',');
+                //getline(customers, cedula,',');
+                if(customer.get_id().compare(id) == 0)
+                {
+                    cout << "NAME: " << name << endl;
+                    cout << "BIRTHDAY: " << date << endl;
+                    cout << "ACCUMULATED POINTS: " << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        else
+        {
+            cout << "----- customers.csv error -----" << endl;
         }
     }
-    not_founded(exist);
+    else
+    {
+        not_founded(customer.get_exist());
+    }
 }
 
 
 void Customer::update(bool exist)
 {
     customer.set_id();
-    for(int a=0; a<customers.size(); a++)
+    customer.existence(customer.get_id(), "customers.csv");
+    if(customer.get_exist())
     {
-        if(customer.get_id() == customers[a].get_id())
+        ifstream original("customers.csv");
+        ofstream temporary("temporary.csv");
+        if(original.is_open() && temporary.is_open())
         {
-            old = customer.get_name();
-            customer.set_name();
-            customer.set_id();
-            for(int b=0; b<customers.size(); b++)
+            while(getline(original, line))
             {
-                if((customer.get_id() == customers[b].get_id())
-                    && (customer.get_id() != customers[a].get_id()))
+                stringstream update(line);
+                getline(update, id, ',');
+                getline(update, name, ',');
+                getline(update, date, ',');
+                if(customer.get_id() == id)
                 {
-                    exist = true;
-                    cout << "----- customer already exists -----" << endl;
-                    break;
+                    old = name;
+                    customer.set_name();
+                    customer.set_id();
+                    customer.set_date();
+                    customer.set_increasepoints(0, 0);
+                    temporary << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
+                }
+                else
+                {
+                    temporary << line << endl;
                 }
             }
-            if(!exist)
-            {
-                customer.set_date();
-                customer.set_increasepoints(customers[a].get_points(), 0);
-                customers[a] = customer;
-                cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
-            }
-            exist = true;
-            break;
+            original.close();
+            temporary.close();
+            remove("customers.csv");
+            rename("temporary.csv", "customers.csv");
+            cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' succesfully -----" << endl;
+        }
+        else
+        {
+            cout << "----- .csv error -----" << endl;
         }
     }
-    not_founded(exist);
+    else
+    {
+        not_founded(customer.get_exist());
+    }
 }
 
 
 void Customer::d_elete(bool exist)
 {
     customer.set_id();
-    for(int c=0; c<customers.size(); c++)
+    customer.existence(customer.get_id(), "customers.csv");
+    if(customer.get_exist())
     {
-        if(customer.get_id() == customers[c].get_id())
+        ifstream original("customers.csv");
+        ofstream temporary("temporary.csv");
+        if(original.is_open() && temporary.is_open())
         {
-            exist = true;
-            deleted = customers[c].get_name();
-            customers.erase(customers.begin()+c);
+            while(getline(original, line))
+            {
+                stringstream to_delete(line);
+                getline(to_delete, id, ',');
+                getline(to_delete, name, ',');
+                getline(to_delete, date, ',');
+                if(customer.get_id() == id)
+                {
+                    deleted = name;
+                }
+                else
+                {
+                    temporary << line << endl;
+                }
+            }
+            original.close();
+            temporary.close();
+            remove("customers.csv");
+            rename("temporary.csv", "customers.csv");
             cout << "----- customer '" << deleted << "' deleted succesfully -----" << endl;
-            break;
+        }
+        else
+        {
+            cout << "----- .csv error -----" << endl;
         }
     }
-    not_founded(exist);
+    else
+    {
+        not_founded(customer.get_exist());
+    }
 }

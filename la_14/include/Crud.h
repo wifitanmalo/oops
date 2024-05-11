@@ -2,6 +2,8 @@
 #define CRUD_H
 
 #include <iostream>
+#include<fstream>
+#include<sstream>
 #include "Customer.h"
 #include "Product.h"
 #include "Bill.h"

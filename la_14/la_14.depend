@@ -42,13 +42,15 @@
 	<vector>
 	"Cloud.h"
 
-1714755264 c:\users\sapoc\downloads\oops!\la_14\include\crud.h
+1715356473 c:\users\sapoc\downloads\oops!\la_14\include\crud.h
 	<iostream>
+	<fstream>
+	<sstream>
 	"Customer.h"
 	"Product.h"
 	"Bill.h"
 
-1714755656 c:\users\sapoc\downloads\oops!\la_14\include\customer.h
+1715314575 c:\users\sapoc\downloads\oops!\la_14\include\customer.h
 	<iostream>
 	"Cloud.h"
 
@@ -56,29 +58,31 @@
 	<iostream>
 	"Cloud.h"
 
-1714761613 source:c:\users\sapoc\downloads\oops!\la_14\src\bill.cpp
+1714762881 source:c:\users\sapoc\downloads\oops!\la_14\src\bill.cpp
 	"Bill.h"
 
-1714757526 source:c:\users\sapoc\downloads\oops!\la_14\src\crud.cpp
+1715356556 source:c:\users\sapoc\downloads\oops!\la_14\src\crud.cpp
 	"Crud.h"
 
-1714755741 source:c:\users\sapoc\downloads\oops!\la_14\src\customer.cpp
+1715402412 source:c:\users\sapoc\downloads\oops!\la_14\src\customer.cpp
 	"Customer.h"
 
-1714761358 source:c:\users\sapoc\downloads\oops!\la_14\src\product.cpp
+1715356539 source:c:\users\sapoc\downloads\oops!\la_14\src\product.cpp
 	"Product.h"
 
 1714755264 c:\users\sapoc\downloads\oops!\la_14\include\menu.h
 	<iostream>
 	"Crud.h"
 
-1714757514 c:\users\sapoc\downloads\oops!\la_14\include\cloud.h
+1715399881 c:\users\sapoc\downloads\oops!\la_14\include\cloud.h
 	<iostream>
+	<fstream>
+	<sstream>
 	<vector>
 
 1714755264 source:c:\users\sapoc\downloads\oops!\la_14\src\menu.cpp
 	"Menu.h"
 
-1714757514 source:c:\users\sapoc\downloads\oops!\la_14\src\cloud.cpp
+1715401608 source:c:\users\sapoc\downloads\oops!\la_14\src\cloud.cpp
 	"Cloud.h"
 

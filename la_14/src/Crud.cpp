@@ -1,6 +1,6 @@
 #include "Crud.h"
 
-
+Customer custom;
 Bill bill;
 Bill bought;
 
@@ -25,6 +25,20 @@ void Crud::create(int data, int loop, bool exist)
         case 2: Product::create(exist); break;
         case 3:
         {
+            ofstream file("bills.csv", ios::app);
+            if(!file)
+            {
+                cout << "----- data base error -----" << endl;
+            }
+            else
+            {
+                cout << "- Name: "; custom.set_name();
+                cout << "- ID: "; custom.set_id();
+                file << custom.get_name() << "," << custom.get_id() << endl;
+                file.close();
+                cout << "----- purchase completed successfully -----" << endl;
+            }
+            /*
             bill.set_id("- Customer ID: ");
             for(int c=0; c<customers.size(); c++)
             {
@@ -107,6 +121,7 @@ void Crud::create(int data, int loop, bool exist)
             {
                 cout << "----- not founded -----" << endl;
             }
+            */
         }; break;
     }
 }
@@ -119,6 +134,18 @@ void Crud::read(int data, int loop, bool exist)
         case 1: Customer::read(exist); break;
         case 2: Product::read(exist); break;
         case 3:
+        {
+            ifstream file("bills.csv", ios::in);
+            if(!file)
+            {
+                system("cls");
+                cout << "----- data base error -----" << endl;
+            }
+            else
+            {
+                file.close();
+            }
+            /*
         {
             bill.set_id("- Bill ID: ");
             for(int b=0; b<bills.size(); b++)
@@ -155,6 +182,7 @@ void Crud::read(int data, int loop, bool exist)
                     break;
                 }
             }
+            */
         }; break;
     }
 }
@@ -169,6 +197,7 @@ void Crud::update(int data, int loop, bool exist)
         case 3:
         {
             bill.set_id("- Bill ID: ");
+            /*
             for(int b=0; b<bills.size(); b++)
             {
                 if(bill.get_id() == bills[b].get_billy())
@@ -261,6 +290,7 @@ void Crud::update(int data, int loop, bool exist)
                     break;
                 }
             }
+            */
         }; break;
     }
 }
@@ -275,6 +305,7 @@ void Crud::d_elete(int data, int loop, bool exist)
         case 3:
         {
             bill.set_id("- Bill ID: ");
+            /*
             for(int b=0; b<bills.size(); b++)
             {
                 if(bill.get_id() == bills[b].get_billy())
@@ -286,6 +317,7 @@ void Crud::d_elete(int data, int loop, bool exist)
                     break;
                 }
             }
+            */
         }; break;
     }
 }

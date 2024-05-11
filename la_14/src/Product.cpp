@@ -56,6 +56,7 @@ void Product::create(bool exist)
 {
     product.set_name();
     product.set_id();
+    /*
     for(int p=0; p<products.size(); p++)
     {
         if(product.get_id() == products[p].get_id())
@@ -74,11 +75,13 @@ void Product::create(bool exist)
         products.push_back(product);
         cout << "----- product '" << product.get_name() << "' created succesfully -----" << endl;
     }
+    */
 }
 
 
 void Product::read(bool exist)
 {
+    /*
     int product_number = 1;
     for(int p=0; p<products.size(); p++)
     {
@@ -92,12 +95,14 @@ void Product::read(bool exist)
         cout << "EXPIRATION DATE: " << products[p].get_date() << endl << endl;
     }
     not_founded(exist);
+    */
 }
 
 
 void Product::update(bool exist)
 {
     product.set_id();
+    /*
     for(int a=0; a<products.size(); a++)
     {
         if(product.get_id() == products[a].get_id())
@@ -129,12 +134,14 @@ void Product::update(bool exist)
         }
     }
     not_founded(exist);
+    */
 }
 
 
 void Product::d_elete(bool exist)
 {
     product.set_id();
+    /*
     for(int p=0; p<products.size(); p++)
     {
         if(product.get_id() == products[p].get_id())
@@ -146,4 +153,5 @@ void Product::d_elete(bool exist)
         }
     }
     not_founded(exist);
+    */
 }

@@ -49,6 +49,19 @@ double Cloud::get_number()
 }
 
 
+void Cloud::set_id(string message)
+{
+    set_number(message);
+    id = to_string(static_cast<long>(number));
+}
+
+
+string Cloud::get_id()
+{
+    return id;
+}
+
+
 void Cloud::set_amount(string message)
 {
     set_number(message);
@@ -62,27 +75,14 @@ int Cloud::get_amount()
 }
 
 
-void Cloud::set_id(string message)
-{
-    set_number(message);
-    id = number;
-}
-
-
-long Cloud::get_id()
-{
-    return id;
-}
-
-
 void Cloud::set_date(string message)
 {
     set_number(message);
-    date = number;
+    date = to_string(static_cast<long>(number));
 }
 
 
-long Cloud::get_date()
+string Cloud::get_date()
 {
     return date;
 }
@@ -116,6 +116,34 @@ void Cloud::stock_reduce(int stock_amount, int amount_bought)
 int Cloud::get_points()
 {
     return points;
+}
+
+
+void Cloud::set_exist(bool value)
+{
+    exist = value;
+}
+
+
+bool Cloud::get_exist()
+{
+    return exist;
+}
+
+
+void Cloud::existence(string id, string file)
+{
+    exist = false;
+    ifstream read(file);
+    while(getline(read, line))
+    {
+        string registered_id = line.substr(0, line.find(','));
+        if(id == registered_id)
+        {
+            exist = true;
+        }
+    }
+    read.close();
 }
 
 

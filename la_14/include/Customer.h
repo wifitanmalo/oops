@@ -15,13 +15,11 @@ class Customer : public Cloud
         void set_name();
         void set_id();
         void set_date();
-
+        // crud
         void create(bool);
         void read(bool);
         void update(bool);
         void d_elete(bool);
-    protected:
-        vector<Customer> customers;
 };
 
 #endif // CUSTOMER_H
