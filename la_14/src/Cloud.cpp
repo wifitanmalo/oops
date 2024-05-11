@@ -129,7 +129,7 @@ string Cloud::get_date()
 void Cloud::set_points()
 {
     set_number("- Points: ");
-    points = number;
+    points = to_string(static_cast<int>(number));
 }
 
 
@@ -151,7 +151,7 @@ void Cloud::stock_reduce(int stock_amount, int amount_bought)
 }
 
 
-int Cloud::get_points()
+string Cloud::get_points()
 {
     return points;
 }

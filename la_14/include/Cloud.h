@@ -4,7 +4,6 @@
 #include<iostream>
 #include <fstream>
 #include <sstream>
-#include<vector>
 using namespace std;
 
 
@@ -30,7 +29,7 @@ class Cloud
         string get_id();
         string get_date();
         string get_amount();
-        int get_points();
+        string get_points();
         bool get_exist();
         // method
         void not_founded(bool);
@@ -38,8 +37,7 @@ class Cloud
         bool exist;
     protected:
         double number;
-        string message, name, id, date, amount, str_points, line, old, deleted;
-        int points;
+        string message, name, id, date, amount, points, line, old, deleted;
 };
 
 

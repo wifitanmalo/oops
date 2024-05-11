@@ -21,8 +21,8 @@ void Crud::create(int data, int loop, bool exist)
 {
     switch(data)
     {
-        case 1: Customer::create(exist); break;
-        case 2: Product::create(exist); break;
+        case 1: Customer::create(); break;
+        case 2: Product::create(); break;
         case 3:
         {
             ofstream file("bills.csv", ios::app);
@@ -131,8 +131,8 @@ void Crud::read(int data, int loop, bool exist)
 {
     switch(data)
     {
-        case 1: Customer::read(exist); break;
-        case 2: Product::read(exist); break;
+        case 1: Customer::read(); break;
+        case 2: Product::read(); break;
         case 3:
         {
             ifstream file("bills.csv", ios::in);
@@ -192,8 +192,8 @@ void Crud::update(int data, int loop, bool exist)
 {
     switch(data)
     {
-        case 1: Customer::update(exist); break;
-        case 2: Product::update(exist); break;
+        case 1: Customer::update(); break;
+        case 2: Product::update(); break;
         case 3:
         {
             bill.set_id("- Bill ID: ");
@@ -300,8 +300,8 @@ void Crud::d_elete(int data, int loop, bool exist)
 {
     switch(data)
     {
-        case 1: Customer::d_elete(exist); break;
-        case 2: Product::d_elete(exist); break;
+        case 1: Customer::d_elete(); break;
+        case 2: Product::d_elete(); break;
         case 3:
         {
             bill.set_id("- Bill ID: ");

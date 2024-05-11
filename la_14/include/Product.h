@@ -1,7 +1,7 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#include<iostream>
+#include <iostream>
 #include "Cloud.h"
 using namespace std;
 
@@ -18,16 +18,15 @@ class Product : public Cloud
         void set_amount();
         void set_date();
         // getters
-        float get_price();
-        // CRUD methods
-        void create(bool);
-        void read(bool);
-        void update(bool);
-        void d_elete(bool);
+        string get_price();
+        // crud
+        void create();
+        void read();
+        void update();
+        void d_elete();
     private:
-        float price;
-    protected:
-        vector<Product> products;
+        string price;
 };
+
 
 #endif // PRODUCT_H

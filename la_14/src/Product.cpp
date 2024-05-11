@@ -34,7 +34,7 @@ void Product::set_price()
 }
 
 
-float Product::get_price()
+string Product::get_price()
 {
     return price;
 }
@@ -48,110 +48,172 @@ void Product::set_amount()
 
 void Product::set_date()
 {
-    Cloud::set_date("- Expiration date: ");
+    Cloud::set_date("- Manufacturing date: ");
 }
 
 
-void Product::create(bool exist)
+void Product::create()
 {
     product.set_name();
     product.set_id();
-    /*
-    for(int p=0; p<products.size(); p++)
+    product.set_exist(product.get_id(), "products.csv");
+    if(product.get_exist())
     {
-        if(product.get_id() == products[p].get_id())
+        cout << "----- product already exists -----" << endl;
+    }
+    else
+    {
+        ofstream file("products.csv", ios::app);
+        if (file.is_open())
         {
-            exist = true;
-            cout << "----- product already exists -----" << endl;
-            break;
+            product.set_price();
+            product.set_amount();
+            product.set_points();
+            product.set_date();
+            file << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
+            << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
+            cout << "----- product '" << product.get_name() << "' created succesfully -----" << endl;
+        }
+        else
+        {
+            cout << "----- products.csv error -----" << endl;
         }
     }
-    if(!exist)
-    {
-        product.set_price();
-        product.set_amount();
-        product.set_points();
-        product.set_date();
-        products.push_back(product);
-        cout << "----- product '" << product.get_name() << "' created succesfully -----" << endl;
-    }
-    */
 }
 
 
-void Product::read(bool exist)
+void Product::read()
 {
-    /*
     int product_number = 1;
-    for(int p=0; p<products.size(); p++)
+    ifstream read("products.csv", ios::in);
+    if(read.is_open())
     {
-        exist = true;
-        cout <<  "---" << product_number++ << "---" << endl;
-        cout << "NAME: " << products[p].get_name()<< endl;
-        cout << "ID: " <<products[p].get_id()<< endl;
-        cout << "PRICE: $" << products[p].get_price()<< endl;
-        cout << "STOCK AMOUNT: " << products[p].get_amount()<< endl;
-        cout << "PURCHASE POINTS: " << products[p].get_points()<< endl;
-        cout << "EXPIRATION DATE: " << products[p].get_date() << endl << endl;
+        while(getline(read, line))
+        {
+            stringstream products(line);
+            getline(products, id,',');
+            getline(products, name,',');
+            getline(products, price,',');
+            getline(products, amount,',');
+            getline(products, points,',');
+            getline(products, date,',');
+            cout <<  "---" << product_number++ << "---" << endl;
+            cout << "NAME: " << name << endl;
+            cout << "ID: " << id << endl;
+            cout << "PRICE: $" << price << endl;
+            cout << "STOCK AMOUNT: " << amount << endl;
+            cout << "PURCHASE POINTS: " << points << endl;
+            cout << "MANUFACTURING DATE: " << date << endl << endl;
+        }
+        read.close();
     }
-    not_founded(exist);
-    */
+    else
+    {
+        cout << "----- products.csv error -----" << endl;
+    }
 }
 
 
-void Product::update(bool exist)
+void Product::update()
 {
     product.set_id();
-    /*
-    for(int a=0; a<products.size(); a++)
+    product.set_exist(product.get_id(), "products.csv");
+    if(product.get_exist())
     {
-        if(product.get_id() == products[a].get_id())
+        ifstream original("products.csv");
+        ofstream updated("updated.csv");
+        if(original.is_open() && updated.is_open())
         {
-            Product::old = product.get_name();
-            product.set_name();
-            product.set_id();
-            for(int b=0; b<products.size(); b++)
+            while(getline(original, line))
             {
-                if((product.get_id() == products[b].get_id())
-                    && (product.get_id() != products[a].get_id()))
+                stringstream products(line);
+                getline(products, id,',');
+                getline(products, name,',');
+                getline(products, price,',');
+                getline(products, amount,',');
+                getline(products, points,',');
+                getline(products, date,',');
+                if(product.get_id() == id)
                 {
-                    exist = true;
-                    cout << "----- product already exists -----" << endl;
-                    break;
+                    old = name;
+                    product.set_name();
+                    product.set_id();
+                    product.set_exist(product.get_id(), "products.csv");
+                    if(product.get_exist() && product.get_id() != id)
+                    {
+                        updated << line << endl;
+                        cout << "----- product already exists -----" << endl;
+                    }
+                    else
+                    {
+                        product.set_price();
+                        product.set_amount();
+                        product.set_points();
+                        product.set_date();
+                        updated << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
+                        << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
+                        cout << "----- product '" << old << "' updated to '" << product.get_name() << "' -----" << endl;
+                    }
+                }
+                else
+                {
+                    updated << line << endl;
                 }
             }
-            if(!exist)
-            {
-                product.set_price();
-                product.set_amount();
-                product.set_points();
-                product.set_date();
-                products[a] = product;
-                cout << "----- product '" << Product::old << "' updated to '" << product.get_name() << "' -----" << endl;
-            }
-            exist = true;
-            break;
+            original.close();
+            updated.close();
+            remove("products.csv");
+            rename("updated.csv", "products.csv");
+        }
+        else
+        {
+            cout << "----- products.csv error -----" << endl;
         }
     }
-    not_founded(exist);
-    */
+    else
+    {
+        not_founded(product.get_exist());
+    }
 }
 
 
-void Product::d_elete(bool exist)
+void Product::d_elete()
 {
     product.set_id();
-    /*
-    for(int p=0; p<products.size(); p++)
+    product.set_exist(product.get_id(), "products.csv");
+    if(product.get_exist())
     {
-        if(product.get_id() == products[p].get_id())
+        ifstream original("products.csv");
+        ofstream updated("updated.csv");
+        if(original.is_open() && updated.is_open())
         {
-            products.erase(products.begin()+p);
-            cout << "----- product '" << products[p].get_name() << "' deleted succesfully -----" << endl;
-            exist = true;
-            break;
+            while(getline(original, line))
+            {
+                stringstream products(line);
+                getline(products, id, ',');
+                getline(products, name, ',');
+                if(product.get_id() == id)
+                {
+                    deleted = name;
+                }
+                else
+                {
+                    updated << line << endl;
+                }
+            }
+            original.close();
+            updated.close();
+            remove("products.csv");
+            rename("updated.csv", "products.csv");
+            cout << "----- product '" << deleted << "' deleted succesfully -----" << endl;
+        }
+        else
+        {
+            cout << "----- products.csv error -----" << endl;
         }
     }
-    not_founded(exist);
-    */
+    else
+    {
+        not_founded(product.get_exist());
+    }
 }
