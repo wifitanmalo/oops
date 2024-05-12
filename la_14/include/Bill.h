@@ -1,7 +1,8 @@
 #ifndef BILL_H
 #define BILL_H
 
-#include<iostream>
+#include <iomanip>
+#include <iostream>
 #include "Customer.h"
 #include "Product.h"
 using namespace std;
@@ -20,7 +21,7 @@ class Bill
         void set_cash();
         void set_change(float, float);
         // get setters
-        int get_billy();
+        string get_billy();
         string get_subtotal();
         string get_cash();
         string get_change();
@@ -32,10 +33,9 @@ class Bill
     private:
         Customer paypal;
         Product bought;
-        double number;
-        int billy=0, option;
+        int option;
         string subtotal, cash, change;
-        string name, customer_name, id, price, amount, points, current, line, deleted;
+        string billy, name, customer_name, id, price, amount, points, date, line, deleted;
 };
 
 

@@ -171,6 +171,34 @@ void Customer::update()
 }
 
 
+void Customer::update_points(string searched, int add)
+{
+    ifstream original("customers.csv");
+    ofstream updated("updated.csv");
+    while(getline(original, line))
+    {
+        stringstream customers(line);
+        getline(customers, id, ',');
+        getline(customers, name, ',');
+        getline(customers, date, ',');
+        getline(customers, points, ',');
+        if(searched == id)
+        {
+            number = stoi(points) + add;
+            updated << id << "," << name << "," << date << "," << to_string(static_cast<int>(number)) << endl;
+        }
+        else
+        {
+            updated << line << endl;
+        }
+    }
+    original.close();
+    updated.close();
+    remove("customers.csv");
+    rename("updated.csv", "customers.csv");
+}
+
+
 void Customer::d_elete()
 {
     customer.set_id();

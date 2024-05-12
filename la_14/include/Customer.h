@@ -21,6 +21,7 @@ class Customer : public Cloud
         void create();
         void read();
         void update();
+        void update_points(string, int);
         void d_elete();
 };
 
