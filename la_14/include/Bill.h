@@ -2,29 +2,26 @@
 #define BILL_H
 
 #include<iostream>
-#include "Cloud.h"
+#include "Customer.h"
+#include "Product.h"
 using namespace std;
 
 
-class Bill : public Cloud
+class Bill
 {
     public:
         Bill();
         ~Bill();
         // setters
-        void set_id(string);
-
         void set_billy();
         void set_amount();
 
-        void set_total(float, float, int);
+        void set_subtotal(float, float, int);
         void set_cash();
         void set_change(float, float);
-
-        void set_date();
         // get setters
         int get_billy();
-        string get_total();
+        string get_subtotal();
         string get_cash();
         string get_change();
         // crud
@@ -33,8 +30,12 @@ class Bill : public Cloud
         void update(int);
         void d_elete();
     private:
+        Customer paypal;
+        Product bought;
+        double number;
         int billy=0, option;
-        string total, cash, change;
+        string subtotal, cash, change;
+        string name, customer_name, id, price, amount, points, current, line, deleted;
 };
 
 

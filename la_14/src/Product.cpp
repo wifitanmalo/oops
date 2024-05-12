@@ -27,9 +27,30 @@ void Product::set_id()
 }
 
 
+
+void Product::set_price()
+{
+    set_number("- Price: $");
+    price = to_string(number);
+}
+
+
+string Product::get_price()
+{
+    return price;
+}
+
+
 void Product::set_amount()
 {
     Cloud::set_amount("- Stock amount: ");
+}
+
+
+void Product::reduce(int stock_amount, int amount_bought)
+{
+    number = stock_amount-amount_bought;
+    amount = to_string(static_cast<int>(number));
 }
 
 

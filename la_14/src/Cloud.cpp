@@ -126,44 +126,10 @@ string Cloud::get_date()
 }
 
 
-void Cloud::set_price()
-{
-    set_number("- Price: $");
-    price = number;
-}
-
-
-string Cloud::get_price()
-{
-    return price;
-}
-
-
 void Cloud::set_points()
 {
     set_number("- Points: ");
     points = to_string(static_cast<int>(number));
-}
-
-
-void Cloud::set_totalpoints(int current_points, int earned, int booster)
-{
-    number = current_points + (earned*booster);
-    points = to_string(static_cast<int>(number));
-}
-
-
-void Cloud::set_increasepoints(int customer_points, int total)
-{
-    number = customer_points+total;
-    points = to_string(static_cast<int>(number));
-}
-
-
-void Cloud::stock_reduce(int stock_amount, int amount_bought)
-{
-    number = stock_amount-amount_bought;
-    amount = to_string(static_cast<int>(number));
 }
 
 

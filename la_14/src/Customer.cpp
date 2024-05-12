@@ -34,6 +34,20 @@ void Customer::set_date()
 }
 
 
+void Customer::set_totalpoints(int current_points, int earned, int booster)
+{
+    number = current_points + (earned*booster);
+    points = to_string(static_cast<int>(number));
+}
+
+
+void Customer::set_increase(int customer_points, int total)
+{
+    number = customer_points+total;
+    points = to_string(static_cast<int>(number));
+}
+
+
 void Customer::create()
 {
     customer.set_name();
@@ -49,7 +63,7 @@ void Customer::create()
         if (create.is_open())
         {
             customer.set_date();
-            customer.set_increasepoints(0, 0);
+            customer.set_increase(0, 0);
             create << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
             cout << "----- customer '" << customer.get_name() << "' created succesfully -----" << endl;
         }
@@ -130,7 +144,7 @@ void Customer::update()
                     else
                     {
                         customer.set_date();
-                        customer.set_increasepoints(0, 0);
+                        customer.set_increase(0, 0);
                         updated << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
                         cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
                     }

@@ -14,14 +14,18 @@ class Product : public Cloud
         // setters
         void set_name();
         void set_id();
+        void set_price();
         void set_amount();
+        void reduce(int, int);
         void set_date();
-        // getters
+        // getter
+        string get_price();
         // crud
         void create();
         void read();
         void update();
         void d_elete();
+        string price;
 };
 
 
