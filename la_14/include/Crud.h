@@ -2,25 +2,25 @@
 #define CRUD_H
 
 #include <iostream>
-#include<fstream>
-#include<sstream>
 #include "Customer.h"
 #include "Product.h"
 #include "Bill.h"
 using namespace std;
 
 
-class Crud : public Customer, Product, Bill
+class Crud
 {
     public:
         Crud();
         virtual ~Crud();
-        void create(int, int, bool);
-        void read(int, int, bool);
-        void update(int, int, bool);
-        void d_elete(int, int, bool);
+        void create(int, int);
+        void read(int, int);
+        void update(int, int);
+        void d_elete(int, int);
     private:
-        int option;
+        Customer c;
+        Product p;
+        Bill b;
 };
 
 

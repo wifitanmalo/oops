@@ -27,11 +27,14 @@ class Bill : public Cloud
         float get_total();
         float get_cash();
         float get_change();
+        // crud
+        void create();
+        void read();
+        void update();
+        void d_elete();
     private:
         int billy=0, product_number;
         float total, cash, change;
-    protected:
-        vector<Bill> bills, bought_products;
 };
 
 

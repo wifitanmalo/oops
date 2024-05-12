@@ -1,6 +1,5 @@
 #include "Product.h"
 
-
 Product product;
 
 

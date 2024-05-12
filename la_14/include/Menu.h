@@ -6,15 +6,16 @@
 using namespace std;
 
 
-class Menu : public Crud
+class Menu
 {
     public:
         Menu();
         ~Menu();
         void menu();
-        void crud_menu(int, int, bool);
+        void crud_menu(int, int);
     private:
-       int data, option;
+        Crud crud;
+        int data, option;
 };
 
 
