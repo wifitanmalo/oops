@@ -19,7 +19,7 @@ void Crud::create(int data, int loop)
     {
         case 1: c.create(); break;
         case 2: p.create(); break;
-        case 3: b.create(); break;
+        case 3: b.create(loop); break;
     }
 }
 
@@ -41,7 +41,7 @@ void Crud::update(int data, int loop)
     {
         case 1: c.update(); break;
         case 2: p.update(); break;
-        case 3: b.update(); break;
+        case 3: b.update(loop); break;
     }
 }
 

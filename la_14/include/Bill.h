@@ -2,7 +2,6 @@
 #define BILL_H
 
 #include<iostream>
-#include<vector>
 #include "Cloud.h"
 using namespace std;
 
@@ -14,27 +13,28 @@ class Bill : public Cloud
         ~Bill();
         // setters
         void set_id(string);
+
         void set_billy();
         void set_amount();
-        void set_productnumber(int, int);
+
         void set_total(float, float, int);
         void set_cash();
         void set_change(float, float);
+
         void set_date();
         // get setters
         int get_billy();
-        int get_productnumber();
-        float get_total();
-        float get_cash();
-        float get_change();
+        string get_total();
+        string get_cash();
+        string get_change();
         // crud
-        void create();
+        void create(int);
         void read();
-        void update();
+        void update(int);
         void d_elete();
     private:
-        int billy=0, product_number;
-        float total, cash, change;
+        int billy=0, option;
+        string total, cash, change;
 };
 
 

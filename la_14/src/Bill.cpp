@@ -1,5 +1,6 @@
 #include "Bill.h"
 
+
 Bill bill;
 Bill bought;
 
@@ -40,25 +41,14 @@ void Bill::set_amount()
 }
 
 
-void Bill::set_productnumber(int number, int current)
-{
-    product_number = number+current;
-}
-
-
-int Bill::get_productnumber()
-{
-    return product_number;
-}
-
-
 void Bill::set_total(float current_total, float price, int amount)
 {
-    total = current_total + (price*amount);
+    number = current_total + (price*amount);
+    total = to_string(static_cast<float>(number));
 }
 
 
-float Bill::get_total()
+string Bill::get_total()
 {
     return total;
 }
@@ -67,11 +57,11 @@ float Bill::get_total()
 void Bill::set_cash()
 {
     set_number("- Cash: $");
-    cash = number;
+    cash = to_string(static_cast<float>(number));
 }
 
 
-float Bill::get_cash()
+string Bill::get_cash()
 {
     return cash;
 }
@@ -79,11 +69,12 @@ float Bill::get_cash()
 
 void Bill::set_change(float cash, float total)
 {
-    change = cash-total;
+    number = cash-total;
+    change = to_string(static_cast<float>(number));
 }
 
 
-float Bill::get_change()
+string Bill::get_change()
 {
     return change;
 }
@@ -95,17 +86,148 @@ void Bill::set_date()
 }
 
 
-void Bill::create()
+void Bill::create(int loop)
 {
-    ofstream file("bills.csv", ios::app);
-    if(!file)
+    bill.set_id("- Customer ID: ");
+    bill.set_exist(bill.get_id(), "customers.csv");
+    if(bill.get_exist())
     {
-        cout << "----- bills.csv error -----" << endl;
+        bill.set_billy();
+        bought.set_billy();
+        bill.set_total(0, 0, 0);
+        bill.set_totalpoints(0, 0, 0);
+        ofstream data("bills.csv", ios::app);
+        ofstream shopping_cart("bought.csv", ios::app);
+        ifstream customer_list("customers.csv");
+        ifstream product_list("products.csv");
+        if(data.is_open()
+           && shopping_cart.is_open()
+           && customer_list.is_open()
+           && product_list.is_open())
+        {
+            while(getline(customer_list, line))
+            {
+                stringstream customers(line);
+                getline(customers, id, ',');
+                getline(customers, name, ',');
+                if(bill.get_id() == id)
+                {
+                    data << bill.get_billy() << "," << id << "," << name << ",";
+                    break;
+                }
+            }
+            while(loop == 1)
+            {
+                system("cls");
+                cout << "Hi, " << name << "! What you wanna buy?" << endl;
+                bought.set_id("- Product ID: ");
+                bought.set_exist(bought.get_id(), "products.csv");
+                if(bought.get_exist())
+                {
+                    while(getline(product_list, line))
+                    {
+                        stringstream products(line);
+                        getline(products, id,',');
+                        getline(products, name,',');
+                        getline(products, price,',');
+                        getline(products, amount,',');
+                        getline(products, points,',');
+                        if(bought.get_id() == id)
+                        {
+                            break;
+                        }
+                    }
+                    product_list.close();
+                    bought.set_amount();
+                    if(stoi(bought.get_amount()) > stoi(amount))
+                    {
+                        cout << "----- exceeds stock -----" << endl;
+                    }
+                    else
+                    {
+                        system("cls");
+                        bill.set_total(stof(bill.get_total()), stof(price), stoi(bought.get_amount()));
+                        bill.set_totalpoints(stoi(bill.get_points()), stof(points), stoi(bought.get_amount()));
+                        bill.stock_reduce(stoi(amount), stoi(bought.get_amount()));
+
+
+                        ofstream updated("updated.csv");
+                        ifstream product_list("products.csv");
+                        while(getline(product_list, line))
+                        {
+                            stringstream products(line);
+                            getline(products, id,',');
+                            if(bought.get_id() == id)
+                            {
+                                getline(products, name,',');
+                                getline(products, price,',');
+                                getline(products, amount,',');
+                                getline(products, points,',');
+                                getline(products, date,',');
+                                updated << id << "," << name << "," << price << ","
+                                << bill.get_amount() << "," << points << "," << date << endl;
+                            }
+                            else
+                            {
+                                updated << line << endl;
+                            }
+                        }
+                        shopping_cart << bill.get_billy() << "," << id << "," << name << "," << price << "," << bought.get_amount() << endl;
+                        product_list.close();
+                        updated.close();
+                        remove("products.csv");
+                        rename("updated.csv", "products.csv");
+                        cout << "Want to do add something else?" << endl;
+                        cout << "1. Yes" << endl;
+                        cout << "0. No" << endl << endl;
+                        cout << "Select your choice: "; cin >> option;
+                        switch(option)
+                        {
+                            case 1: break;
+                            default:
+                            {
+                                while(true)
+                                {
+                                    bill.set_cash();
+                                    bill.set_change(stof(bill.get_cash()), stof(bill.get_total()));
+                                    if(stof(bill.get_change()) < 0)
+                                    {
+                                        cout << "----- not enough cash -----" << endl;
+                                    }
+                                    else
+                                    {
+                                        bill.set_date();
+                                        bill.set_increasepoints(0, stoi(bill.get_points()));
+                                        //customers[c].set_increasepoints(customers[c].get_points(), bill.get_points());
+                                        cout << "- Bill ID: " << bill.get_billy() << endl;
+                                        cout << "----- purchase completed successfully -----" << endl;
+                                        break;
+                                    }
+                                }
+                                loop = 0;
+                            }; break;
+                        }
+                    }
+                }
+                else
+                {
+                    not_founded(bought.get_exist());
+                }
+            }
+            data << bill.get_total() << "," << bill.get_cash() << "," << bill.get_change() << "," << bill.get_points() << endl;
+            customer_list.close();
+        }
+        else
+        {
+            cout << "----- bills.csv error -----" << endl;
+        }
     }
     else
     {
-
+        not_founded(bill.get_exist());
     }
+
+
     /*
     bill.set_id("- Customer ID: ");
     for(int c=0; c<customers.size(); c++)
@@ -236,7 +358,7 @@ void Bill::read()
 }
 
 
-void Bill::update()
+void Bill::update(int loop)
 {
     bill.set_id("- Bill ID: ");
     /*
@@ -338,18 +460,57 @@ void Bill::update()
 
 void Bill::d_elete()
 {
+    string file;
     bill.set_id("- Bill ID: ");
-    /*
-    for(int b=0; b<bills.size(); b++)
+    bill.set_exist(bill.get_id(), "bills.csv");
+    if(bill.get_exist())
     {
-        if(bill.get_id() == bills[b].get_billy())
+        for(int loop=0; loop<2; loop++)
         {
-            int deleted = bill.get_number();
-            bills.erase(bills.begin()+b);
-            cout << "----- bill #" << deleted << " deleted succesfully -----" << endl;
-            exist = true;
-            break;
+            switch(loop)
+            {
+                case 0: file = "bills.csv"; break;
+                case 1: file = "bought.csv"; break;
+            }
+            ifstream original(file);
+            ofstream updated("updated.csv");
+            if(original.is_open() && updated.is_open())
+            {
+                while(getline(original, line))
+                {
+                    stringstream bills(line);
+                    getline(bills, id, ',');
+                    if(bill.get_id() == id)
+                    {
+                        deleted = id;
+                    }
+                    else
+                    {
+                        updated << line << endl;
+                    }
+                }
+                original.close();
+                updated.close();
+                if(loop == 0)
+                {
+                    remove("bills.csv");
+                    rename("updated.csv", "bills.csv");
+                }
+                else
+                {
+                    remove("bought.csv");
+                    rename("updated.csv", "bought.csv");
+                    cout << "----- bill #" << id << "' deleted succesfully -----" << endl;
+                }
+            }
+            else
+            {
+                cout << "----- bills.csv error -----" << endl;
+            }
         }
     }
-    */
+    else
+    {
+        not_founded(bill.get_exist());
+    }
 }

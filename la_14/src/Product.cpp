@@ -1,5 +1,6 @@
 #include "Product.h"
 
+
 Product product;
 
 
@@ -23,19 +24,6 @@ void Product::set_name()
 void Product::set_id()
 {
     Cloud::set_id("- Product ID: ");
-}
-
-
-void Product::set_price()
-{
-    set_number("- Price: $");
-    price = number;
-}
-
-
-string Product::get_price()
-{
-    return price;
 }
 
 

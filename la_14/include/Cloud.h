@@ -17,6 +17,7 @@ class Cloud
         void set_number(string);
         virtual void set_id(string);
         virtual void set_date(string);
+        void set_price();
         virtual void set_amount(string);
         void set_points();
         void set_increasepoints(int, int);
@@ -28,6 +29,7 @@ class Cloud
         double get_number();
         string get_id();
         string get_date();
+        string get_price();
         string get_amount();
         string get_points();
         bool get_exist();
@@ -37,7 +39,7 @@ class Cloud
         bool exist;
     protected:
         double number;
-        string message, name, id, date, amount, points, line, old, deleted;
+        string message, name, id, date, price, amount, points, line, old, deleted;
 };
 
 
