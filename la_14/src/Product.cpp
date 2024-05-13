@@ -31,7 +31,7 @@ void Product::set_id()
 void Product::set_price()
 {
     set_number("- Price: $");
-    price = to_string(number);
+    price = to_string(static_cast<float>(number));
 }
 
 

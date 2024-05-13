@@ -1,6 +1,7 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
+#include <iomanip>
 #include <iostream>
 #include "Cloud.h"
 using namespace std;

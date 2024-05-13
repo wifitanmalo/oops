@@ -144,7 +144,7 @@ void Customer::update()
                     else
                     {
                         customer.set_date();
-                        customer.set_increase(0, 0);
+                        customer.set_increase(stoi(points), 0);
                         updated << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
                         cout << "----- customer '" << old << "' updated to '" << customer.get_name() << "' -----" << endl;
                     }

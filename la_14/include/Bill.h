@@ -33,7 +33,7 @@ class Bill
     private:
         Customer paypal;
         Product bought;
-        int option;
+        int option, earned;
         string subtotal, cash, change;
         string billy, name, customer_name, id, price, amount, points, date, line, deleted;
 };
