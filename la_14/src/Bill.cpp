@@ -207,7 +207,7 @@ void Bill::create(int loop)
                                 {
                                     bill.set_cash();
                                     bill.set_change(stof(bill.get_cash()), stof(bill.get_subtotal()));
-                                    if(stof(bill.get_change()) < 1)
+                                    if(stof(bill.get_change()) < 0)
                                     {
                                         cout << "----- not enough cash -----" << endl;
                                     }
@@ -217,7 +217,8 @@ void Bill::create(int loop)
                                         paypal.Cloud::set_date("- Purchase date: ");
                                         paypal.update_points(paypal.get_id(), earned);
                                         cout << "- Bill ID: " << bill.get_billy() << endl;
-                                        cout << "----- purchase completed successfully -----" << endl;
+                                        cout << "----- purchase completed successfully -----" << endl << endl;
+                                        bill.read(bill.get_billy());
                                         break;
                                     }
                                 }
@@ -246,85 +247,78 @@ void Bill::create(int loop)
 }
 
 
-void Bill::read()
+void Bill::read(string searched)
 {
-    cout << "1. Search a bill" << endl;
-    cout << "2. General sales report" << endl << endl;
-    cout << "Select your choice: "; cin >> option;
-    system("cls");
-    switch(option)
+    ifstream invoices("bills.csv", ios::in);
+    ifstream products("bought.csv", ios::in);
+    ofstream print("printed.txt", ios::out);
+    if(invoices.is_open() && products.is_open() && print.is_open())
     {
-        case 1:
+        print_line << setw(4) << "ID" << setw(16) << "NAME" << setw(16) << "PRICE" << setw(8) << "AMOUNT" << endl;
+        while(getline(products, line))
         {
-            paypal.Cloud::set_id("- Bill ID: ");
-            ifstream invoices("bills.csv", ios::in);
-            ifstream products("bought.csv", ios::in);
-            if(invoices.is_open() && products.is_open())
+            stringstream item(line);
+            getline(item, billy, ',');
+            if(searched == billy)
             {
-                cout << setw(4) << "ID" << setw(16) << "NAME" << setw(16) << "PRICE" << setw(8) << "AMOUNT" << endl;
-                while(getline(products, line))
+                getline(item, id,',');
+                getline(item, name,',');
+                getline(item, price,',');
+                getline(item, amount,',');
+                if(name.size() > 15)
                 {
-                    stringstream item(line);
-                    getline(item, billy, ',');
-                    if(paypal.get_id() == billy)
+                    for(int i=0; i<15; i++)
                     {
-                        getline(item, id,',');
-                        getline(item, name,',');
-                        getline(item, price,',');
-                        getline(item, amount,',');
-                        if(name == "----- deleted -----")
-                        {
-                            cout << name << endl;
-                            break;
-                        }
-                        else
-                        {
-                            cout << setw(4) << id << setw(16) << name << setw(16) << "$"+price << setw(8) << "x"+amount << endl;
-                        }
+                        chopped += name[i];
                     }
+                    print_line << setw(4) << id << setw(16) << chopped << setw(16) << "$"+price << setw(8) << "x"+amount << endl;
                 }
-                while(getline(invoices, line))
+                else
                 {
-                    stringstream bills(line);
-                    getline(bills, billy, ',');
-                    if(paypal.get_id() == billy)
-                    {
-                        getline(bills, id,',');
-                        getline(bills, name,',');
-                        getline(bills, subtotal,',');
-                        getline(bills, cash,',');
-                        getline(bills, change,',');
-                        getline(bills, points,',');
-                        getline(bills, date,',');
-                        cout << "**** SUBTOTAL/TOTAL >>>> $" << subtotal << endl;
-                        cout << "     CASH: $" << cash << endl;
-                        cout << "     CHANGE: $" << change << endl;
-                        cout << "--------------------------------------------" << endl;
-                        cout << "PURCHASE DATE: " << date << endl;
-                        cout << "DEAR CUSTOMER: " << name << " (" << id << ")" << endl;
-                        cout << "EARNED POINTS: " << points << endl;
-                        cout << "********* THANKS FOR YOUR PURCHASE *********" << endl;
-                        break;
-                    }
+                    print_line << setw(4) << id << setw(16) << name << setw(16) << "$"+price << setw(8) << "x"+amount << endl;
                 }
-                invoices.close();
-                products.close();
             }
-            else
-            {
-                cout << "----- bills.csv error -----" << endl;
-            }
-        }; break;
-        case 2:
+        }
+        while(getline(invoices, line))
         {
-            cout << "under construction" << endl;
-        }; break;
+            stringstream bills(line);
+            getline(bills, billy, ',');
+            if(searched == billy)
+            {
+                getline(bills, id,',');
+                getline(bills, name,',');
+                getline(bills, subtotal,',');
+                getline(bills, cash,',');
+                getline(bills, change,',');
+                getline(bills, points,',');
+                getline(bills, date,',');
+                print_line << "**** SUBTOTAL/TOTAL >>>> $" << subtotal << endl;
+                print_line << "     CASH: $" << cash << endl;
+                print_line << "     CHANGE: $" << change << endl;
+                print_line << "--------------------------------------------" << endl;
+                print_line << "PURCHASE DATE: " << date << endl;
+                print_line << "DEAR CUSTOMER: " << name << " (" << id << ")" << endl;
+                print_line << "EARNED POINTS: " << points << endl;
+                print_line << "********* THANKS FOR YOUR PURCHASE *********" << endl;
+                break;
+            }
+        }
+        cout << print_line.str();
+        print << print_line.str();
+        invoices.close();
+        products.close();
+        print.close();
+    }
+    else
+    {
+        cout << "----- bills.csv error -----" << endl;
     }
 }
 
 
 void Bill::update(int loop)
 {
+    cout << "----- under construction -----" << endl;
 }
 
 

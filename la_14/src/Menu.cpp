@@ -43,9 +43,9 @@ void Menu::crud_menu(int data, int loop)
     switch(option)
     {
         case 1: crud.create(data, loop); break;
-        case 2: crud.read(data, loop); break;
+        case 2: crud.read(data); break;
         case 3: crud.update(data, loop); break;
-        case 4: crud.d_elete(data, loop); break;
+        case 4: crud.d_elete(data); break;
         default: cout << "----- see you space, cowboy -----\n"; exit(0); break;
     }
 }

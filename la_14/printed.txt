@@ -1,0 +1,11 @@
+  ID            NAME           PRICE  AMOUNT
+   3 Coca-Cola 400ml    $3500.000000      x2
+   0     Plastic bag     $200.000000      x1
+**** SUBTOTAL/TOTAL >>>> $7200.000000
+     CASH: $20000.000000
+     CHANGE: $12800.000000
+--------------------------------------------
+PURCHASE DATE: 25112003
+DEAR CUSTOMER: Karen Andrea (2459413)
+EARNED POINTS: 6
+********* THANKS FOR YOUR PURCHASE *********

@@ -24,13 +24,17 @@ void Crud::create(int data, int loop)
 }
 
 
-void Crud::read(int data, int loop)
+void Crud::read(int data)
 {
     switch(data)
     {
         case 1: c.read(); break;
         case 2: p.read(); break;
-        case 3: b.read(); break;
+        case 3:
+        {
+            c.Cloud::set_id("- Bill ID: ");
+            b.read(c.get_id());
+        }; break;
     }
 }
 
@@ -46,7 +50,7 @@ void Crud::update(int data, int loop)
 }
 
 
-void Crud::d_elete(int data, int loop)
+void Crud::d_elete(int data)
 {
     switch(data)
     {

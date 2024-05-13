@@ -14,9 +14,9 @@ class Crud
         Crud();
         virtual ~Crud();
         void create(int, int);
-        void read(int, int);
+        void read(int);
         void update(int, int);
-        void d_elete(int, int);
+        void d_elete(int);
     private:
         Customer c;
         Product p;

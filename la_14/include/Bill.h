@@ -27,14 +27,16 @@ class Bill
         string get_change();
         // crud
         void create(int);
-        void read();
+        void read(string);
         void update(int);
         void d_elete();
     private:
         Customer paypal;
         Product bought;
         int option, earned;
-        string subtotal, cash, change;
+        stringstream print_line;
+        string chopped, subtotal, cash, change;
+
         string billy, name, customer_name, id, price, amount, points, date, line, deleted;
 };
 

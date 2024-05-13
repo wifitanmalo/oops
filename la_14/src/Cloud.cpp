@@ -31,7 +31,7 @@ void Cloud::set_number(string message)
     while(true)
     {
         cout << message; cin >> number;
-        if(number < 1)
+        if(number < 0)
         {
             cout << "----- negative numbers not allowed -----" << endl;
         }
