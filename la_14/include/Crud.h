@@ -18,9 +18,9 @@ class Crud
         void update(int, int);
         void d_elete(int);
     private:
-        Customer c;
-        Product p;
-        Bill b;
+        Customer user;
+        Product merchandise;
+        Bill sales;
 };
 
 
