@@ -3,6 +3,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include "Customer.h"
 #include "Product.h"
 using namespace std;
@@ -16,7 +17,6 @@ class Bill
         // setters
         void set_billy();
         void set_amount();
-
         void set_subtotal(float, float, int);
         void set_cash();
         void set_change(float, float);
@@ -27,17 +27,17 @@ class Bill
         string get_change();
         // crud
         void create(int);
-        void read(string, int);
-        void sales_report();
+        void read(string, string, bool);
+        void sales_report(int, int);
         void update(int);
         void d_elete();
     private:
+        stringstream print_line;
         Customer paypal;
         Product bought;
         int option, earned;
-        string chopped, subtotal, cash, change;
-
-        string billy, name, customer_name, id, price, amount, points, date, line, deleted;
+        string billy, chopped, subtotal, cash, change;
+        string name, customer_name, id, price, amount, points, date, line, deleted;
 };
 
 

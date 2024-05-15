@@ -216,9 +216,10 @@ void Bill::create(int loop)
                                     {
                                         earned = stoi(paypal.get_points());
                                         paypal.Cloud::set_date("- Purchase date: ");
+                                        data << bill.get_subtotal() << "," << bill.get_cash() << "," << bill.get_change() << "," << earned << "," << paypal.get_date() << endl;
                                         paypal.update_points(paypal.get_id(), earned);
                                         cout << "----- purchase completed successfully -----" << endl << endl;
-                                        bill.read(bill.get_billy(), 1);
+                                        bill.read("printed.txt", bill.get_billy(), true);
                                         break;
                                     }
                                 }
@@ -233,7 +234,6 @@ void Bill::create(int loop)
                     system("pause");
                 }
             }
-            data << bill.get_subtotal() << "," << bill.get_cash() << "," << bill.get_change() << "," << earned << "," << paypal.get_date() << endl;
         }
         else
         {
@@ -247,118 +247,72 @@ void Bill::create(int loop)
 }
 
 
-void Bill::read(string searched, int option)
+void Bill::read(string file, string searched, bool reset)
 {
-    system("cls");
-    switch(option)
+    if(reset)
     {
-        case 1:
-        {
-            stringstream print_line;
-            ifstream invoices("bills.csv", ios::in);
-            ifstream products("bought.csv", ios::in);
-            ofstream print("printed.txt", ios::out);
-            if(invoices.is_open() && products.is_open() && print.is_open())
-            {
-                print_line << setw(4) << "ID" << setw(16) << "NAME" << setw(16) << "PRICE" << setw(8) << "AMOUNT" << endl;
-                while(getline(products, line))
-                {
-                    stringstream item(line);
-                    getline(item, billy, ',');
-                    if(searched == billy)
-                    {
-                        getline(item, id,',');
-                        getline(item, name,',');
-                        getline(item, price,',');
-                        getline(item, amount,',');
-                        if(name.size() > 15)
-                        {
-                            for(int i=0; i<15; i++)
-                            {
-                                chopped += name[i];
-                            }
-                            print_line << setw(4) << id << setw(16) << chopped << setw(17) << "$"+price << setw(7) << "x"+amount << endl;
-                        }
-                        else
-                        {
-                            print_line << setw(4) << id << setw(16) << name << setw(17) << "$"+price << setw(7) << "x"+amount << endl;
-                        }
-                    }
-                }
-                while(getline(invoices, line))
-                {
-                    stringstream bills(line);
-                    getline(bills, billy, ',');
-                    if(searched == billy)
-                    {
-                        getline(bills, id,',');
-                        getline(bills, name,',');
-                        getline(bills, subtotal,',');
-                        getline(bills, cash,',');
-                        getline(bills, change,',');
-                        getline(bills, points,',');
-                        getline(bills, date,',');
-                        print_line << "**** SUBTOTAL/TOTAL >>>> $" << subtotal << endl
-                        << "     CASH: $" << cash << endl
-                        << "     CHANGE: $" << change << endl
-                        << "--------------------------------------------" << endl
-                        << "PURCHASE DATE: " << date << endl
-                        << "DEAR CUSTOMER: " << name << " (" << id << ")" << endl
-                        << "EARNED POINTS: " << points << endl
-                        << "BILL ID: " << billy << endl
-                        << "********* THANKS FOR YOUR PURCHASE *********" << endl;
-                        break;
-                    }
-                }
-                print << print_line.str();
-                cout << print_line.str();
-                invoices.close();
-                products.close();
-                print.close();
-            }
-            else
-            {
-                cout << "----- bills.csv error -----" << endl;
-            }
-        }; break;
-        case 2: sales_report(); break;
+        print_line.str("");
     }
-}
-
-
-void Bill::sales_report()
-{
-    float income = 0;
     ifstream invoices("bills.csv", ios::in);
-    ofstream report("sales_report.txt", ios::out);
-    if(invoices.is_open() && report.is_open())
+    ifstream products("bought.csv", ios::in);
+    ofstream print(file, ios::out);
+    if(invoices.is_open() && products.is_open() && print.is_open())
     {
+        print_line << setw(4) << "ID" << setw(16) << "NAME" << setw(16) << "PRICE" << setw(8) << "AMOUNT" << endl;
+        while(getline(products, line))
+        {
+            stringstream item(line);
+            getline(item, billy, ',');
+            if(searched == billy)
+            {
+                getline(item, id,',');
+                getline(item, name,',');
+                getline(item, price,',');
+                getline(item, amount,',');
+                if(name.size() > 15)
+                {
+                    for(int i=0; i<15; i++)
+                    {
+                        chopped += name[i];
+                    }
+                    print_line << setw(4) << id << setw(16) << chopped << setw(17) << "$"+price << setw(7) << "x"+amount << endl;
+                }
+                else
+                {
+                    print_line << setw(4) << id << setw(16) << name << setw(17) << "$"+price << setw(7) << "x"+amount << endl;
+                }
+            }
+        }
         while(getline(invoices, line))
         {
             stringstream bills(line);
             getline(bills, billy, ',');
-            getline(bills, id,',');
-            getline(bills, name,',');
-            getline(bills, subtotal,',');
-            /*getline(bills, cash,',');
-            getline(bills, change,',');
-            getline(bills, points,',');
-            getline(bills, date,',');
-            */
-            if(subtotal != "")
+            if(searched == billy)
             {
-                income += stof(subtotal);
-            }
-            else
-            {
-                income = 0;
+                getline(bills, id,',');
+                getline(bills, name,',');
+                getline(bills, subtotal,',');
+                getline(bills, cash,',');
+                getline(bills, change,',');
+                getline(bills, points,',');
+                getline(bills, date,',');
+                print_line << "**** SUBTOTAL/TOTAL >>>> $" << subtotal << endl
+                << "     CASH: $" << cash << endl
+                << "     CHANGE: $" << change << endl
+                << "--------------------------------------------" << endl
+                << "PURCHASE DATE: " << date << endl
+                << "DEAR CUSTOMER: " << name << " (" << id << ")" << endl
+                << "EARNED POINTS: " << points << endl
+                << "BILL ID: " << billy << endl
+                << "********* THANKS FOR YOUR PURCHASE *********\n\n\n" << endl;
                 break;
             }
         }
-        report << "TOTAL INCOME: $" << income << endl;
-        cout << "TOTAL INCOME: $" << income << endl;
+        cout << print_line.str();
+        print << print_line.str();
         invoices.close();
-        report.close();
+        products.close();
+        print.close();
     }
     else
     {
@@ -367,6 +321,84 @@ void Bill::sales_report()
 }
 
 
+void Bill::sales_report(int the_beg, int the_end)
+{
+    string day, month, year;
+    stringstream total;
+    float income = 0;
+    system("cls");
+    ifstream invoices("bills.csv", ios::in);
+    ofstream report("sales_report.txt", ios::app);
+    if(invoices.is_open() && report.is_open())
+    {
+        if(the_beg == the_end)
+        {
+            total << "----- " << the_end << " -----" << endl;
+        }
+        else
+        {
+            total << "--------------- " << the_beg << " to " << the_end << " ---------------" << endl;
+        }
+        while(getline(invoices, line))
+        {
+            stringstream bills(line);
+            getline(bills, billy, ',');
+            getline(bills, id, ',');
+            getline(bills, name, ',');
+            getline(bills, subtotal, ',');
+            getline(bills, cash, ',');
+            getline(bills, change, ',');
+            getline(bills, points, ',');
+            getline(bills, date, ',');
+            stringstream time;
+            time << date;
+            for(int i=0; i<3; i++)
+            {
+                getline(time, day, '/');
+                getline(time, month, '/');
+                getline(time, year, '/');
+            }
+            if(stoi(year) >= the_beg && stoi(year) <= the_end)
+            {
+                income += stof(subtotal);
+                read("sales_report.txt", billy, false);
+            }
+        }
+        total << "   ******** TOTAL INCOME: $" << income << " ********" << endl << endl;
+        report << total.str();
+        cout << total.str();
+        invoices.close();
+        report.close();
+        print_line.str("");
+    }
+    else
+    {
+        cout << "----- bills.csv error -----" << endl;
+    }
+}
+
+/*
+void Bill::order()
+{
+    int position, current;
+    for(int i=0; the_vector.size(); i++)
+    {
+        position = i;
+        current = the_vector[i];
+        while((position>0) && (the_vector[position-1] > current))
+        {
+            the_vector[position] = the_vector[position-1];
+            position--;
+        }
+
+        the_vector[position] = current;
+    }
+    for(int i=0; the_vector.size(); i++)
+    {
+        cout << "nigger: " << the_vector[i] << endl;
+    }
+}
+*/
 
 void Bill::update(int loop)
 {

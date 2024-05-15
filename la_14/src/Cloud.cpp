@@ -77,6 +77,7 @@ string Cloud::get_amount()
 
 void Cloud::set_date(string message)
 {
+    date = "0";
     int dd, mm, yyyy, limit;
     while(true)
     {
@@ -113,7 +114,7 @@ void Cloud::set_date(string message)
         }
         else
         {
-            date = to_string(dd) + to_string(mm) + to_string(yyyy);
+            date = to_string(dd) + "/" + to_string(mm) + "/" + to_string(yyyy);
             break;
         }
     }

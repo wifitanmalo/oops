@@ -35,6 +35,7 @@ void Crud::read(int data)
             cout << "1. Read a bill" << endl;
             cout << "2. Sales report" << endl << endl;
             merchandise.Cloud::set_amount("Select your choice: ");
+            system("cls");
             switch(stoi(merchandise.get_amount()))
             {
                 case 1:
@@ -43,14 +44,28 @@ void Crud::read(int data)
                     user.set_exist(user.get_id(), "bills.csv");
                     if(user.get_exist())
                     {
-                         sales.read(user.get_id(), 1);
+                         sales.read("printed.txt", user.get_id(), true);
                     }
                     else
                     {
                         user.not_founded(user.get_exist());
                     }
                 }; break;
-                case 2: sales.read("uwu", 2); break;
+                case 2:
+                {
+                    user.Cloud::set_amount("- Start year: ");
+                    the_beg = stoi(user.get_amount());
+                    user.Cloud::set_amount("- End year: ");
+                    the_end = stoi(user.get_amount());
+                    if(the_beg > the_end)
+                    {
+                        sales.sales_report(the_end, the_beg);
+                    }
+                    else
+                    {
+                        sales.sales_report(the_beg, the_end);
+                    }
+                }; break;
                 default: cout << "----- invalid option -----" << endl; break;
             }
         }; break;

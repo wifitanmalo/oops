@@ -13,8 +13,8 @@ class Cloud
         Cloud();
         virtual ~Cloud();
         // setters
-        virtual void set_name(string);
         void set_number(string);
+        virtual void set_name(string);
         virtual void set_id(string);
         virtual void set_date(string);
         virtual void set_amount(string);

@@ -26,6 +26,7 @@ class Product : public Cloud
         void read();
         void update();
         void d_elete();
+    private:
         string price;
 };
 
