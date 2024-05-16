@@ -1,13 +1,15 @@
   ID            NAME           PRICE  AMOUNT
-   4    Rubik's Cube    $50000.000000     x1
+   5  Condensed milk     $1650.000000     x1
    3 Coca-Cola 400ml     $3500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $57000.000000
-     CASH: $60000.000000
-     CHANGE: $3000.000000
+**** SUBTOTAL/TOTAL >>>> $8650.000000
+     CASH: $9000.000000
+     CHANGE: $350.000000
 --------------------------------------------
-PURCHASE DATE: 25/9/2011
-DEAR CUSTOMER: Nicolas (2380530)
-EARNED POINTS: 56
-BILL ID: 2
+PURCHASE DATE: 15/5/2024
+DEAR CUSTOMER: Andres felipe (2380664)
+EARNED POINTS: 8
+BILL ID: 8
 ********* THANKS FOR YOUR PURCHASE *********
+
+
 

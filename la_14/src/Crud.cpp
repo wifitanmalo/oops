@@ -33,7 +33,8 @@ void Crud::read(int data)
         case 3:
         {
             cout << "1. Read a bill" << endl;
-            cout << "2. Sales report" << endl << endl;
+            cout << "2. Sales report" << endl;
+            cout << "3. Products report" << endl << endl;
             merchandise.Cloud::set_amount("Select your choice: ");
             system("cls");
             switch(stoi(merchandise.get_amount()))
@@ -66,6 +67,7 @@ void Crud::read(int data)
                         sales.sales_report(the_beg, the_end);
                     }
                 }; break;
+                case 3: sales.products_report(); break;
                 default: cout << "----- invalid option -----" << endl; break;
             }
         }; break;
