@@ -16,6 +16,7 @@ class Product : public Cloud
         void set_name();
         void set_id();
         void set_price();
+        void set_points();
         void set_amount();
         void reduce(int, int);
         void set_date();
@@ -26,8 +27,6 @@ class Product : public Cloud
         void read();
         void update();
         void d_elete();
-    private:
-        string price;
 };
 
 

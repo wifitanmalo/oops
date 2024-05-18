@@ -26,8 +26,7 @@ void Product::set_id()
     Cloud::set_id("- Product ID: ");
 }
 
-
-
+// function to enter the price of a product
 void Product::set_price()
 {
     set_number("- Price: $");
@@ -47,6 +46,14 @@ void Product::set_amount()
 }
 
 
+// function to enter the amount of points for purchase
+void Product::set_points()
+{
+    set_number("- Points: ");
+    points = to_string(static_cast<int>(number));
+}
+
+// function to reduce an buyed amount of the total stock
 void Product::reduce(int stock_amount, int amount_bought)
 {
     number = stock_amount-amount_bought;
@@ -59,10 +66,9 @@ void Product::set_date()
     Cloud::set_date("- Manufacturing date: ");
 }
 
-
+// function that ask for an id and verify that does not exist to create the product
 void Product::create()
 {
-    product.set_name();
     product.set_id();
     product.set_exist(product.get_id(), "products.csv");
     if(product.get_exist())
@@ -71,25 +77,26 @@ void Product::create()
     }
     else
     {
-        ofstream file("products.csv", ios::app);
-        if (file.is_open())
+        ofstream create("products.csv", ios::app);
+        if(create.is_open())
         {
+            product.set_name();
             product.set_price();
             product.set_amount();
             product.set_points();
             product.set_date();
-            file << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
+            create << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
             << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-            cout << "----- product '" << product.get_name() << "' created succesfully -----" << endl;
+            succes(2, 1, product.get_name());
         }
         else
         {
-            cout << "----- products.csv error -----" << endl;
+            open_error("products.csv");
         }
     }
 }
 
-
+// function to print the products list
 void Product::read()
 {
     int product_number = 1;
@@ -117,11 +124,12 @@ void Product::read()
     }
     else
     {
-        cout << "----- products.csv error -----" << endl;
+        open_error("products.csv");
     }
+
 }
 
-
+// function that ask for an id and verify that does not exist or it's the same to update the product
 void Product::update()
 {
     product.set_id();
@@ -143,8 +151,6 @@ void Product::update()
                 getline(products, date,',');
                 if(product.get_id() == id)
                 {
-                    old = name;
-                    product.set_name();
                     product.set_id();
                     product.set_exist(product.get_id(), "products.csv");
                     if(product.get_exist() && product.get_id() != id)
@@ -154,13 +160,14 @@ void Product::update()
                     }
                     else
                     {
+                        product.set_name();
                         product.set_price();
                         product.set_amount();
                         product.set_points();
                         product.set_date();
                         updated << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
                         << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-                        cout << "----- product '" << old << "' updated to '" << product.get_name() << "' -----" << endl;
+                        succes(2, 3, product.get_name());
                     }
                 }
                 else
@@ -175,7 +182,7 @@ void Product::update()
         }
         else
         {
-            cout << "----- products.csv error -----" << endl;
+            open_error("products.csv");
         }
     }
     else
@@ -184,41 +191,15 @@ void Product::update()
     }
 }
 
-
+// function that ask for an ID and calls the Cloud d_elete() to delete the product
 void Product::d_elete()
 {
     product.set_id();
     product.set_exist(product.get_id(), "products.csv");
     if(product.get_exist())
     {
-        ifstream original("products.csv");
-        ofstream updated("updated.csv");
-        if(original.is_open() && updated.is_open())
-        {
-            while(getline(original, line))
-            {
-                stringstream products(line);
-                getline(products, id, ',');
-                getline(products, name, ',');
-                if(product.get_id() == id)
-                {
-                    deleted = name;
-                }
-                else
-                {
-                    updated << line << endl;
-                }
-            }
-            original.close();
-            updated.close();
-            remove("products.csv");
-            rename("updated.csv", "products.csv");
-            cout << "----- product '" << deleted << "' deleted succesfully -----" << endl;
-        }
-        else
-        {
-            cout << "----- products.csv error -----" << endl;
-        }
+        Cloud::d_elete("products.csv", product.get_id());
+        succes(2, 4, deleted);
     }
     else
     {

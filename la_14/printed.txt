@@ -1,14 +1,15 @@
   ID            NAME           PRICE  AMOUNT
-   5  Condensed milk     $1650.000000     x1
-   3 Coca-Cola 400ml     $3500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $8650.000000
-     CASH: $9000.000000
-     CHANGE: $350.000000
+   1         Condoms     $6900.000000     x2
+   2            Soap     $4500.000000     x1
+   0     Plastic bag      $200.000000     x1
+**** SUBTOTAL/TOTAL >>>> $18500.000000
+     CASH: $20000.000000
+     CHANGE: $1500.000000
 --------------------------------------------
-PURCHASE DATE: 15/5/2024
-DEAR CUSTOMER: Andres felipe (2380664)
-EARNED POINTS: 8
-BILL ID: 8
+PURCHASE DATE: 25/11/2023
+DEAR CUSTOMER: Laura Sofia (2209)
+EARNED POINTS: 142
+BILL ID: 1
 ********* THANKS FOR YOUR PURCHASE *********
 
 

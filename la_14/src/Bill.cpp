@@ -15,7 +15,7 @@ Bill::~Bill()
     //dtor
 }
 
-
+// function to define the next bill ID based on the last one created
 void Bill::set_billy()
 {
     int counter = 0;
@@ -56,7 +56,7 @@ void Bill::set_amount()
     bought.Cloud::set_amount("- Amount to buy: ");
 }
 
-
+// function to calculate the total of the bill
 void Bill::set_subtotal(float current_total, float price, int amount)
 {
     paypal.number = current_total + (price*amount);
@@ -69,7 +69,7 @@ string Bill::get_subtotal()
     return subtotal;
 }
 
-
+// function to enter the customer cash
 void Bill::set_cash()
 {
     paypal.set_number("- Cash: $");
@@ -82,7 +82,7 @@ string Bill::get_cash()
     return cash;
 }
 
-
+// function to calculate the change of the purchase
 void Bill::set_change(float cash, float total)
 {
     paypal.number = cash-total;
@@ -95,7 +95,7 @@ string Bill::get_change()
     return change;
 }
 
-
+// function that ask for a customer ID and then ask for
 void Bill::create(int loop)
 {
     paypal.set_id();
@@ -218,7 +218,7 @@ void Bill::create(int loop)
                                         paypal.Cloud::set_date("- Purchase date: ");
                                         data << bill.get_subtotal() << "," << bill.get_cash() << "," << bill.get_change() << "," << earned << "," << paypal.get_date() << endl;
                                         paypal.update_points(paypal.get_id(), earned);
-                                        cout << "----- purchase completed successfully -----" << endl << endl;
+                                        paypal.succes(3, 2, bill.get_billy());
                                         bill.read("printed.txt", bill.get_billy(), true);
                                         break;
                                     }
@@ -246,7 +246,7 @@ void Bill::create(int loop)
     }
 }
 
-
+// function to read a bill and write it in a .txx file to print
 void Bill::read(string file, string searched, bool reset)
 {
     if(reset)
@@ -346,62 +346,20 @@ void Bill::order()
 
 void Bill::update(int loop)
 {
-    d_elete();
-    system("cls");
-    create(1);
+    cout << "----- under construction -----" << endl;
 }
 
 
 void Bill::d_elete()
 {
-    string file;
     paypal.set_id();
     paypal.set_exist(paypal.get_id(), "bills.csv");
     if(paypal.get_exist())
     {
-        for(int loop=0; loop<2; loop++)
-        {
-            switch(loop)
-            {
-                case 0: file = "bills.csv"; break;
-                case 1: file = "bought.csv"; break;
-            }
-            ifstream original(file);
-            ofstream updated("updated.csv");
-            if(original.is_open() && updated.is_open())
-            {
-                while(getline(original, line))
-                {
-                    stringstream bills(line);
-                    getline(bills, id, ',');
-                    if(paypal.get_id() == id)
-                    {
-                        deleted = id;
-                    }
-                    else
-                    {
-                        updated << line << endl;
-                    }
-                }
-                original.close();
-                updated.close();
-                if(loop == 0)
-                {
-                    remove("bills.csv");
-                    rename("updated.csv", "bills.csv");
-                }
-                else
-                {
-                    remove("bought.csv");
-                    rename("updated.csv", "bought.csv");
-                    cout << "----- bill #" << deleted << " deleted succesfully -----" << endl;
-                }
-            }
-            else
-            {
-                cout << "----- bills.csv error -----" << endl;
-            }
-        }
+        deleted = paypal.get_id();
+        paypal.Cloud::d_elete("bills.csv", paypal.get_id());
+        paypal.Cloud::d_elete("bought.csv", paypal.get_id());
+        paypal.succes(3, 4, deleted);
     }
     else
     {

@@ -12,7 +12,7 @@ Cloud::~Cloud()
     //dtor
 }
 
-
+// function to enter a name
 void Cloud::set_name(string message)
 {
     fflush(stdin);
@@ -25,7 +25,7 @@ string Cloud::get_name()
     return name;
 }
 
-
+// function to enter a positive number
 void Cloud::set_number(string message)
 {
     while(true)
@@ -48,7 +48,7 @@ double Cloud::get_number()
     return number;
 }
 
-
+// function to enter an ID
 void Cloud::set_id(string message)
 {
     set_number(message);
@@ -61,7 +61,7 @@ string Cloud::get_id()
     return id;
 }
 
-
+// function to enter an amount of stock/to buy
 void Cloud::set_amount(string message)
 {
     set_number(message);
@@ -74,7 +74,7 @@ string Cloud::get_amount()
     return amount;
 }
 
-
+// function to enter a date that verifies if is valid
 void Cloud::set_date(string message)
 {
     date = "0";
@@ -127,32 +127,32 @@ string Cloud::get_date()
 }
 
 
-void Cloud::set_points()
-{
-    set_number("- Points: ");
-    points = to_string(static_cast<int>(number));
-}
-
-
 string Cloud::get_points()
 {
     return points;
 }
 
-
+// function to search an ID in a file an drops true/false based on the existence
 void Cloud::set_exist(string id, string file)
 {
     exist = false;
     ifstream read(file);
-    while(getline(read, line))
+    if(read.is_open())
     {
-        string registered_id = line.substr(0, line.find(','));
-        if(id == registered_id)
+        while(getline(read, line))
         {
-            exist = true;
+            string registered = line.substr(0, line.find(','));
+            if(id == registered)
+            {
+                exist = true;
+            }
         }
+        read.close();
     }
-    read.close();
+    else
+    {
+        open_error(file);
+    }
 }
 
 
@@ -161,11 +161,95 @@ bool Cloud::get_exist()
     return exist;
 }
 
+// error message that shows when the file can not be open
+void Cloud::open_error(string file)
+{
+    cout << "----- " + file + " error -----" << endl;
+}
 
+// succes message that shows when somethings ends well
+void Cloud::succes(int option, int crud, string name)
+{
+    string type;
+    switch(option)
+    {
+        case 1: type = "customer '"; break;
+        case 2: type = "product '"; break;
+        case 3: type = "bill '"; break;
+    }
+    switch(crud)
+    {
+        case 1: cout << "----- " << type << name << "' created succesfully -----" << endl; break;
+        case 2: cout << "----- purchase completed successfully -----" << endl << endl; break;
+        case 3: cout << "----- " << type << name << "' updated succesfully -----" << endl; break;
+        case 4: cout << "----- " << type << name << "' deleted succesfully -----" << endl; break;
+    }
+}
+
+// message that shows when the id does not exist
 void Cloud::not_founded(bool exist)
 {
     if(!exist)
     {
         cout << "----- not founded -----" << endl;
+    }
+}
+
+// search an ID and save the item data
+void Cloud::eyefind(string file, string searched, int option)
+{
+    ifstream seek(file, ios::in);
+    if(seek.is_open())
+    {
+        while(getline(seek, line))
+        {
+            stringstream token(line);
+            getline(token, id,',');
+            if((id == searched) && (option == 1)) // customer data
+            {
+                getline(token, name,',');
+                getline(token, date,',');
+                getline(token, points,',');
+                break;
+            }
+        }
+        seek.close();
+    }
+    else
+    {
+        open_error(file);
+    }
+}
+
+
+// ask for an ID and replace the file without the deleted item
+void Cloud::d_elete(string file, string searched)
+{
+    ifstream original(file);
+    ofstream updated("updated.csv", ios::app);
+    if((original.is_open()) && (updated.is_open()))
+    {
+        while(getline(original, line))
+        {
+            stringstream to_delete(line);
+            getline(to_delete, id, ',');
+            getline(to_delete, name, ',');
+            if(searched == id)
+            {
+                deleted = name;
+            }
+            else
+            {
+                updated << line << endl;
+            }
+        }
+        original.close();
+        updated.close();
+        remove(file.c_str());
+        rename("updated.csv", file.c_str());
+    }
+    else
+    {
+        open_error(file);
     }
 }
