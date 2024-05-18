@@ -16,15 +16,15 @@ Customer::~Customer()
 }
 
 
-void Customer::set_name()
-{
-    Cloud::set_name("- Customer name: ");
-}
-
-
 void Customer::set_id()
 {
     Cloud::set_id("- Customer ID: ");
+}
+
+
+void Customer::set_name()
+{
+    Cloud::set_name("- Customer name: ");
 }
 
 
@@ -65,7 +65,7 @@ void Customer::create()
             customer.set_date();
             customer.set_increase(0, 0);
             create << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
-            succes(1, 1, customer.get_name());
+            success(1, 1, customer.get_name());
             create.close();
         }
         else
@@ -74,7 +74,6 @@ void Customer::create()
         }
     }
 }
-
 
 // function that ask for an ID to print the customer data
 void Customer::read()
@@ -126,7 +125,7 @@ void Customer::update()
                         customer.set_name();
                         customer.set_date();
                         updated << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << points << endl;
-                        succes(1, 3, customer.get_name());
+                        success(1, 3, customer.get_name());
                     }
                 }
                 else
@@ -187,7 +186,7 @@ void Customer::d_elete()
     if(customer.get_exist())
     {
         Cloud::d_elete("customers.csv", customer.get_id());
-        succes(1, 4, deleted);
+        success(1, 4, deleted);
     }
     else
     {

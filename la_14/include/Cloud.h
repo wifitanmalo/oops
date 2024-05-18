@@ -14,27 +14,26 @@ class Cloud
         virtual ~Cloud();
         // setters
         void set_number(string);
-        virtual void set_name(string);
         virtual void set_id(string);
+        void set_exist(string, string);
+        virtual void set_name(string);
         virtual void set_date(string);
         virtual void set_amount(string);
-        void set_exist(string, string);
         // getters
-        string get_name();
         double get_number();
         string get_id();
+        bool get_exist();
+        string get_name();
         string get_date();
         string get_amount();
         string get_points();
-        bool get_exist();
-
-
-        void eyefind(string, string, int);
-        virtual void d_elete(string, string);
-        // method
+        // methods
         void open_error(string);
-        void succes(int, int, string);
+        void eyefind(string, string, int);
         void not_founded(bool);
+        void success(int, int, string);
+        // crud
+        virtual void d_elete(string, string);
         // public variables
         double number;
         string message, name, id, date, price, amount, points, line, old, deleted;

@@ -95,6 +95,171 @@ string Bill::get_change()
     return change;
 }
 
+// function that print in a file the bills over a timelapse and calculate the income earned in that period
+void Bill::sales_report(int the_beg, int the_end)
+{
+    string day, month, year;
+    stringstream total;
+    float income = 0;
+    system("cls");
+    ifstream invoices("bills.csv", ios::in);
+    ofstream report("sales_report.txt", ios::app);
+    if(invoices.is_open() && report.is_open())
+    {
+        if(the_beg == the_end)
+        {
+            total << "----- " << the_end << " -----" << endl;
+        }
+        else
+        {
+            total << "--------------- " << the_beg << " to " << the_end << " ---------------" << endl;
+        }
+        while(getline(invoices, line))
+        {
+            stringstream bills(line);
+            getline(bills, billy, ',');
+            getline(bills, id, ',');
+            getline(bills, name, ',');
+            getline(bills, subtotal, ',');
+            getline(bills, cash, ',');
+            getline(bills, change, ',');
+            getline(bills, points, ',');
+            getline(bills, date, ',');
+            stringstream time;
+            time << date;
+            for(int i=0; i<3; i++)
+            {
+                getline(time, day, '/');
+                getline(time, month, '/');
+                getline(time, year, '/');
+            }
+            if(stoi(year) >= the_beg && stoi(year) <= the_end) // verify that the year is not out of the range
+            {
+                income += stof(subtotal);
+                read("sales_report.txt", billy, false);
+            }
+        }
+        total << "   ******** TOTAL INCOME: $" << income << " ********" << endl << endl;
+        report << total.str();
+        cout << total.str();
+        invoices.close();
+        report.close();
+        print_line.str(""); // clean the stringstream
+    }
+    else
+    {
+        paypal.open_error("sales_report.txt");
+    }
+}
+
+// function that print in a file the out of stock products
+void Bill::products_report()
+{
+    stringstream data;
+    ifstream products("products.csv", ios::in);
+    ifstream invoices("bills.csv", ios::in);
+    ofstream report("products_report.txt", ios::out);
+    if(products.is_open() && invoices.is_open() && report.is_open())
+    {
+        data << "----- out of stock -----" << endl;
+        while(getline(products, line))
+        {
+            stringstream item(line);
+            getline(item, id,',');
+            getline(item, name,',');
+            getline(item, price,',');
+            getline(item, amount,',');
+            if(amount == "0")
+            {
+                data << "- ID: " << id << " - " << name << endl;
+            }
+        }
+        report << data.str();
+        cout << data.str();
+        products.close();
+        invoices.close();
+        report.close();
+        low_demand();
+    }
+    else
+    {
+        paypal.open_error("products_report.txt");
+    }
+}
+
+// function that calculates the average of sells and write in the file the lower ones
+void Bill::low_demand()
+{
+    option = 0;
+    vector<string> sales;
+    ifstream read("bought.csv", ios::in);
+    ofstream report("products_report.txt", ios::app);
+    if(read.is_open() && report.is_open())
+    {
+        while(getline(read, line))
+        {
+            stringstream item(line);
+            getline(item, billy,',');
+            getline(item, id,',');
+            getline(item, name,',');
+            getline(item, price,',');
+            getline(item, amount,',');
+            bought.set_exist(id, "bought.csv");
+            if(bought.get_exist())
+            {
+                selled = "- ID: " + id + " - " + name + "x" + amount;
+            }
+            else
+            {
+                selled = "- ID: " + id + " - " + name + "x0";
+            }
+            sales.push_back(selled);
+        }
+        for(int a=0; a<sales.size(); a++)
+        {
+            for(int b=a+1; b<sales.size(); b++)
+            {
+                stringstream one;
+                one << sales[a];
+                getline(one, name, 'x');
+                getline(one, amount, 'x');
+                stringstream two;
+                two << sales[b];
+                getline(two, chopped, 'x');
+                getline(two, subtotal, 'x');
+                if(name == chopped)
+                {
+                    earned = stoi(amount) + stoi(subtotal);
+                    option += earned;
+                    sales[a] = name + "x" + to_string(static_cast<int>(earned));;
+                    sales.erase(sales.begin()+b);
+                }
+            }
+        }
+        average = option / sales.size();
+        print_line << "\n----- low demand -----" << endl;
+        for(int i=0; i<sales.size(); i++)
+        {
+            stringstream low;
+            low << sales[i];
+            getline(low, name, 'x');
+            getline(low, amount, 'x');
+            if(stoi(amount) < average)
+            {
+                print_line << sales[i] << endl;
+            }
+        }
+        report << print_line.str();
+        cout << print_line.str();
+        read.close();
+        report.close();
+    }
+    else
+    {
+        bought.open_error("products_report.txt");
+    }
+}
+
 // function that ask for a customer ID and then ask for
 void Bill::create(int loop)
 {
@@ -150,7 +315,7 @@ void Bill::create(int loop)
                     }
                     product_list.close();
                     bought.set_amount();
-                    if(stoi(bought.get_amount()) > stoi(amount) || stoi(bought.get_amount()) == 0)
+                    if(stoi(bought.get_amount()) > stoi(amount) || stoi(bought.get_amount()) == 0) // verify that the amount is not higher than the stock
                     {
                         cout << "----- invalid stock -----" << endl;
                         system("pause");
@@ -193,9 +358,9 @@ void Bill::create(int loop)
                         }
                         else
                         {
-                            cout << "----- products.csv error -----" << endl;
+                            bought.open_error("products.csv");
                         }
-                        cout << "Want to do add something else?" << endl;
+                        cout << "Want to do add something else?" << endl; // ask to add other product/finish shopping
                         cout << "1. Yes" << endl;
                         cout << "0. No" << endl << endl;
                         cout << "Select your choice: "; cin >> option;
@@ -216,14 +381,15 @@ void Bill::create(int loop)
                                     {
                                         earned = stoi(paypal.get_points());
                                         paypal.Cloud::set_date("- Purchase date: ");
-                                        data << bill.get_subtotal() << "," << bill.get_cash() << "," << bill.get_change() << "," << earned << "," << paypal.get_date() << endl;
+                                        data << bill.get_subtotal() << "," << bill.get_cash() << ","
+                                        << bill.get_change() << "," << earned << "," << paypal.get_date() << endl;
                                         paypal.update_points(paypal.get_id(), earned);
-                                        paypal.succes(3, 2, bill.get_billy());
+                                        paypal.success(3, 2, bill.get_billy());
                                         bill.read("printed.txt", bill.get_billy(), true);
                                         break;
                                     }
                                 }
-                                loop = 0;
+                                loop = 0; // end the loop of the added products
                             }; break;
                         }
                     }
@@ -237,7 +403,7 @@ void Bill::create(int loop)
         }
         else
         {
-            cout << "----- bills.csv error -----" << endl;
+            paypal.open_error("bills.csv");
         }
     }
     else
@@ -251,7 +417,7 @@ void Bill::read(string file, string searched, bool reset)
 {
     if(reset)
     {
-        print_line.str("");
+        print_line.str(""); // clean the stringstream
     }
     ifstream invoices("bills.csv", ios::in);
     ifstream products("bought.csv", ios::in);
@@ -316,144 +482,30 @@ void Bill::read(string file, string searched, bool reset)
     }
     else
     {
-        cout << "----- bills.csv error -----" << endl;
+        paypal.open_error("bills.csv");
     }
 }
 
-
-/*
-void Bill::order()
-{
-    int position, current;
-    for(int i=0; the_vector.size(); i++)
-    {
-        position = i;
-        current = the_vector[i];
-        while((position>0) && (the_vector[position-1] > current))
-        {
-            the_vector[position] = the_vector[position-1];
-            position--;
-        }
-
-        the_vector[position] = current;
-    }
-    for(int i=0; the_vector.size(); i++)
-    {
-        cout << "nigger: " << the_vector[i] << endl;
-    }
-}
-*/
 
 void Bill::update(int loop)
 {
     cout << "----- under construction -----" << endl;
 }
 
-
+// function that ask for an ID and calls the Cloud d_elete() to delete the bill/products of the bill
 void Bill::d_elete()
 {
-    paypal.set_id();
+    paypal.Cloud::set_id("- Bill ID: ");
     paypal.set_exist(paypal.get_id(), "bills.csv");
     if(paypal.get_exist())
     {
         deleted = paypal.get_id();
         paypal.Cloud::d_elete("bills.csv", paypal.get_id());
         paypal.Cloud::d_elete("bought.csv", paypal.get_id());
-        paypal.succes(3, 4, deleted);
+        paypal.success(3, 4, deleted);
     }
     else
     {
         paypal.not_founded(paypal.get_exist());
-    }
-}
-
-
-void Bill::sales_report(int the_beg, int the_end)
-{
-    string day, month, year;
-    stringstream total;
-    float income = 0;
-    system("cls");
-    ifstream invoices("bills.csv", ios::in);
-    ofstream report("sales_report.txt", ios::app);
-    if(invoices.is_open() && report.is_open())
-    {
-        if(the_beg == the_end)
-        {
-            total << "----- " << the_end << " -----" << endl;
-        }
-        else
-        {
-            total << "--------------- " << the_beg << " to " << the_end << " ---------------" << endl;
-        }
-        while(getline(invoices, line))
-        {
-            stringstream bills(line);
-            getline(bills, billy, ',');
-            getline(bills, id, ',');
-            getline(bills, name, ',');
-            getline(bills, subtotal, ',');
-            getline(bills, cash, ',');
-            getline(bills, change, ',');
-            getline(bills, points, ',');
-            getline(bills, date, ',');
-            stringstream time;
-            time << date;
-            for(int i=0; i<3; i++)
-            {
-                getline(time, day, '/');
-                getline(time, month, '/');
-                getline(time, year, '/');
-            }
-            if(stoi(year) >= the_beg && stoi(year) <= the_end)
-            {
-                income += stof(subtotal);
-                read("sales_report.txt", billy, false);
-            }
-        }
-        total << "   ******** TOTAL INCOME: $" << income << " ********" << endl << endl;
-        report << total.str();
-        cout << total.str();
-        invoices.close();
-        report.close();
-        print_line.str("");
-    }
-    else
-    {
-        cout << "----- sales_report.txt error -----" << endl;
-    }
-}
-
-
-void Bill::products_report()
-{
-    stringstream data;
-    ifstream products("products.csv", ios::in);
-    ifstream invoices("bills.csv", ios::in);
-    ofstream report("products_report.txt", ios::out);
-    if(products.is_open() && invoices.is_open() && report.is_open())
-    {
-        data << "----- out of stock products -----" << endl;
-        while(getline(products, line))
-        {
-            stringstream item(line);
-            getline(item, id,',');
-            getline(item, name,',');
-            getline(item, price,',');
-            getline(item, amount,',');
-            if(amount == "0")
-            {
-                data << "- " << name << " (" << id << ")" << endl;
-            }
-        }
-        report << data.str();
-        cout << data.str();
-        products.close();
-        invoices.close();
-        report.close();
-    }
-    else
-    {
-        cout << "----- products_report.txt error -----" << endl;
     }
 }

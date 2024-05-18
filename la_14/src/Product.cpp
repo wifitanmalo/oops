@@ -15,16 +15,17 @@ Product::~Product()
 }
 
 
+void Product::set_id()
+{
+    Cloud::set_id("- Product ID: ");
+}
+
+
 void Product::set_name()
 {
     Cloud::set_name("- Product name: ");
 }
 
-
-void Product::set_id()
-{
-    Cloud::set_id("- Product ID: ");
-}
 
 // function to enter the price of a product
 void Product::set_price()
@@ -87,7 +88,7 @@ void Product::create()
             product.set_date();
             create << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
             << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-            succes(2, 1, product.get_name());
+            success(2, 1, product.get_name());
         }
         else
         {
@@ -167,7 +168,7 @@ void Product::update()
                         product.set_date();
                         updated << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
                         << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-                        succes(2, 3, product.get_name());
+                        success(2, 3, product.get_name());
                     }
                 }
                 else
@@ -199,7 +200,7 @@ void Product::d_elete()
     if(product.get_exist())
     {
         Cloud::d_elete("products.csv", product.get_id());
-        succes(2, 4, deleted);
+        success(2, 4, deleted);
     }
     else
     {

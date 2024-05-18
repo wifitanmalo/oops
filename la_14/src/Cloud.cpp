@@ -12,19 +12,6 @@ Cloud::~Cloud()
     //dtor
 }
 
-// function to enter a name
-void Cloud::set_name(string message)
-{
-    fflush(stdin);
-    cout << message; getline(cin, name);
-}
-
-
-string Cloud::get_name()
-{
-    return name;
-}
-
 // function to enter a positive number
 void Cloud::set_number(string message)
 {
@@ -59,6 +46,48 @@ void Cloud::set_id(string message)
 string Cloud::get_id()
 {
     return id;
+}
+
+// function to search an ID in a file an drops true/false based on the existence
+void Cloud::set_exist(string id, string file)
+{
+    exist = false;
+    ifstream read(file);
+    if(read.is_open())
+    {
+        while(getline(read, line))
+        {
+            string registered = line.substr(0, line.find(','));
+            if(id == registered)
+            {
+                exist = true;
+            }
+        }
+        read.close();
+    }
+    else
+    {
+        open_error(file);
+    }
+}
+
+
+bool Cloud::get_exist()
+{
+    return exist;
+}
+
+// function to enter a name
+void Cloud::set_name(string message)
+{
+    fflush(stdin);
+    cout << message; getline(cin, name);
+}
+
+
+string Cloud::get_name()
+{
+    return name;
 }
 
 // function to enter an amount of stock/to buy
@@ -132,96 +161,6 @@ string Cloud::get_points()
     return points;
 }
 
-// function to search an ID in a file an drops true/false based on the existence
-void Cloud::set_exist(string id, string file)
-{
-    exist = false;
-    ifstream read(file);
-    if(read.is_open())
-    {
-        while(getline(read, line))
-        {
-            string registered = line.substr(0, line.find(','));
-            if(id == registered)
-            {
-                exist = true;
-            }
-        }
-        read.close();
-    }
-    else
-    {
-        open_error(file);
-    }
-}
-
-
-bool Cloud::get_exist()
-{
-    return exist;
-}
-
-// error message that shows when the file can not be open
-void Cloud::open_error(string file)
-{
-    cout << "----- " + file + " error -----" << endl;
-}
-
-// succes message that shows when somethings ends well
-void Cloud::succes(int option, int crud, string name)
-{
-    string type;
-    switch(option)
-    {
-        case 1: type = "customer '"; break;
-        case 2: type = "product '"; break;
-        case 3: type = "bill '"; break;
-    }
-    switch(crud)
-    {
-        case 1: cout << "----- " << type << name << "' created succesfully -----" << endl; break;
-        case 2: cout << "----- purchase completed successfully -----" << endl << endl; break;
-        case 3: cout << "----- " << type << name << "' updated succesfully -----" << endl; break;
-        case 4: cout << "----- " << type << name << "' deleted succesfully -----" << endl; break;
-    }
-}
-
-// message that shows when the id does not exist
-void Cloud::not_founded(bool exist)
-{
-    if(!exist)
-    {
-        cout << "----- not founded -----" << endl;
-    }
-}
-
-// search an ID and save the item data
-void Cloud::eyefind(string file, string searched, int option)
-{
-    ifstream seek(file, ios::in);
-    if(seek.is_open())
-    {
-        while(getline(seek, line))
-        {
-            stringstream token(line);
-            getline(token, id,',');
-            if((id == searched) && (option == 1)) // customer data
-            {
-                getline(token, name,',');
-                getline(token, date,',');
-                getline(token, points,',');
-                break;
-            }
-        }
-        seek.close();
-    }
-    else
-    {
-        open_error(file);
-    }
-}
-
-
 // ask for an ID and replace the file without the deleted item
 void Cloud::d_elete(string file, string searched)
 {
@@ -251,5 +190,65 @@ void Cloud::d_elete(string file, string searched)
     else
     {
         open_error(file);
+    }
+}
+
+// error message that shows when the file can not be open
+void Cloud::open_error(string file)
+{
+    cout << "----- " + file + " error -----" << endl;
+}
+
+// search an ID and save the item data
+void Cloud::eyefind(string file, string searched, int option)
+{
+    ifstream seek(file, ios::in);
+    if(seek.is_open())
+    {
+        while(getline(seek, line))
+        {
+            stringstream token(line);
+            getline(token, id,',');
+            if((id == searched) && (option == 1)) // customer data
+            {
+                getline(token, name,',');
+                getline(token, date,',');
+                getline(token, points,',');
+                break;
+            }
+        }
+        seek.close();
+    }
+    else
+    {
+        open_error(file);
+    }
+}
+
+// message that shows when the id does not exist
+void Cloud::not_founded(bool exist)
+{
+    if(!exist)
+    {
+        cout << "----- not founded -----" << endl;
+    }
+}
+
+// succes message that shows when somethings ends well
+void Cloud::success(int option, int crud, string name)
+{
+    string type;
+    switch(option)
+    {
+        case 1: type = "customer '"; break;
+        case 2: type = "product '"; break;
+        case 3: type = "bill '"; break;
+    }
+    switch(crud)
+    {
+        case 1: cout << "----- " << type << name << "' created succesfully -----" << endl; break;
+        case 2: cout << "----- purchase completed successfully -----" << endl << endl; break;
+        case 3: cout << "----- " << type << name << "' updated succesfully -----" << endl; break;
+        case 4: cout << "----- " << type << name << "' deleted succesfully -----" << endl; break;
     }
 }

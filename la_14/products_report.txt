@@ -1,3 +1,7 @@
------ out of stock products -----
-- Soap (2)
-- Rubik's Cube (4)
+----- out of stock -----
+- ID: 2 - Soap
+- ID: 4 - Rubik's Cube
+
+----- low demand -----
+- ID: 0 - Plastic bagx0
+- ID: 4 - Rubik's Cubex1

@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "Customer.h"
 #include "Product.h"
 using namespace std;
@@ -25,20 +26,23 @@ class Bill
         string get_subtotal();
         string get_cash();
         string get_change();
+        // methods
+        void sales_report(int, int);
+        void products_report();
+        void low_demand();
         // crud
         void create(int);
         void read(string, string, bool);
         void update(int);
         void d_elete();
-        // methods
-        void sales_report(int, int);
-        void products_report();
     private:
         Customer paypal;
         Product bought;
         int option, earned;
+        float average;
+        string billy, chopped, subtotal, cash, change, selled;
         stringstream print_line;
-        string billy, chopped, subtotal, cash, change;
+
         string name, customer_name, id, price, amount, points, date, line, deleted;
 };
 

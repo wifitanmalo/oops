@@ -13,8 +13,8 @@ class Product : public Cloud
         Product();
         ~Product();
         // setters
-        void set_name();
         void set_id();
+        void set_name();
         void set_price();
         void set_points();
         void set_amount();
