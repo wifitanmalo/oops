@@ -26,6 +26,7 @@ void Crud::create(int data, int loop)
 
 void Crud::read(int data)
 {
+    int the_beg, the_end;
     switch(data)
     {
         case 1: user.read(); break;

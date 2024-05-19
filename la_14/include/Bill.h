@@ -16,7 +16,7 @@ class Bill
         Bill();
         ~Bill();
         // setters
-        void set_billy();
+        void set_id();
         void set_amount();
         void set_subtotal(float, float, int);
         void set_cash();
@@ -38,9 +38,8 @@ class Bill
     private:
         Customer paypal;
         Product bought;
-        int option, earned;
-        float average;
-        string line, billy, client, chopped, subtotal, cash, change, selled;
+        int earned;
+        string line, billy, chopped, subtotal, cash, change;
         stringstream print_line;
 };
 

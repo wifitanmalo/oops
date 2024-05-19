@@ -1,14 +1,13 @@
   ID            NAME           PRICE  AMOUNT
-   6   Mani-Moto 44g     $1800.000000     x2
-   3 Coca-Cola 400ml     $3500.000000     x1
-**** SUBTOTAL/TOTAL >>>> $7100.000000
-     CASH: $8000.000000
-     CHANGE: $900.000000
+   1         Condoms     $6900.000000     x2
+**** SUBTOTAL/TOTAL >>>> $13800.000000
+     CASH: $15000.000000
+     CHANGE: $1200.000000
 --------------------------------------------
-PURCHASE DATE: 18/5/2024
-DEAR CUSTOMER: Nicolas (2380530)
-EARNED POINTS: 7
-BILL ID: 5
+PURCHASE DATE: 2/2/2
+DEAR CUSTOMER: Beta tester (0)
+EARNED POINTS: 138
+BILL ID: 7
 ********* THANKS FOR YOUR PURCHASE *********
 
 

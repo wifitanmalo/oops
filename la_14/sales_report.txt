@@ -1,19 +1,4 @@
   ID            NAME           PRICE  AMOUNT
-   4    Rubik's Cube    $50000.000000     x1
-   3 Coca-Cola 400ml     $3500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $57000.000000
-     CASH: $60000.000000
-     CHANGE: $3000.000000
---------------------------------------------
-PURCHASE DATE: 25/9/2011
-DEAR CUSTOMER: Nicolas (2380530)
-EARNED POINTS: 56
-BILL ID: 2
-********* THANKS FOR YOUR PURCHASE *********
-
-
-
-  ID            NAME           PRICE  AMOUNT
    1         Condoms     $6900.000000     x2
    2            Soap     $4500.000000     x1
    0     Plastic bag      $200.000000     x1
@@ -30,18 +15,52 @@ BILL ID: 1
 
 
   ID            NAME           PRICE  AMOUNT
-**** SUBTOTAL/TOTAL >>>> $18300.000000
-     CASH: $100000.000000
-     CHANGE: $81700.000000
+   6   Mani-Moto 44g     $1800.000000     x2
+   3 Coca-Cola 400ml     $3500.000000     x1
+**** SUBTOTAL/TOTAL >>>> $7100.000000
+     CASH: $8000.000000
+     CHANGE: $900.000000
 --------------------------------------------
-PURCHASE DATE: 12/3/2023
-DEAR CUSTOMER: Karen Andrea (2459413)
-EARNED POINTS: 142
+PURCHASE DATE: 18/5/2024
+DEAR CUSTOMER: Nicolas (2380530)
+EARNED POINTS: 7
+BILL ID: 4
+********* THANKS FOR YOUR PURCHASE *********
+
+
+
+  ID            NAME           PRICE  AMOUNT
+   2            Soap     $4500.000000     x3
+   5  Condensed milk     $1650.000000     x2
+   3 Coca-Cola 400ml     $3500.000000     x1
+   0     Plastic bag      $200.000000     x1
+**** SUBTOTAL/TOTAL >>>> $20500.000000
+     CASH: $25000.000000
+     CHANGE: $4500.000000
+--------------------------------------------
+PURCHASE DATE: 12/5/2024
+DEAR CUSTOMER: Andres felipe (2380664)
+EARNED POINTS: 19
+BILL ID: 5
+********* THANKS FOR YOUR PURCHASE *********
+
+
+
+  ID            NAME           PRICE  AMOUNT
+   4    Rubik's Cube    $50000.000000     x1
+   6   Mani-Moto 44g     $1800.000000     x2
+**** SUBTOTAL/TOTAL >>>> $53600.000000
+     CASH: $55000.000000
+     CHANGE: $1400.000000
+--------------------------------------------
+PURCHASE DATE: 19/5/2024
+DEAR CUSTOMER: Natalia (2380414)
+EARNED POINTS: 54
 BILL ID: 6
 ********* THANKS FOR YOUR PURCHASE *********
 
 
 
---------------- 2023 to 2025 ---------------
-   ******** TOTAL INCOME: $36800 ********
+--------------- 2023 to 2024 ---------------
+   ******** TOTAL INCOME: $99700 ********
 

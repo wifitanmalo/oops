@@ -2,4 +2,7 @@
 - None
 
 ----- low demand -----
+- ID: 1 - Condomsx2
 - ID: 0 - Plastic bagx0
+- ID: 4 - Rubik's Cubex2
+- ID: 5 - Condensed milkx2

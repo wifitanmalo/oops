@@ -1,10 +1,7 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 
-#include <iostream>
 #include "Cloud.h"
-using namespace std;
-
 
 class Customer : public Cloud
 {

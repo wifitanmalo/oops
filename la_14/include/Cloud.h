@@ -6,7 +6,6 @@
 #include <sstream>
 using namespace std;
 
-
 class Cloud
 {
     public:
@@ -33,10 +32,13 @@ class Cloud
         void not_founded(bool);
         void success(int, int);
         // crud
+        virtual void create()=0;
+        virtual void read()=0;
+        virtual void update()=0;
         virtual void d_elete(string, string);
         // public variables
         double number;
-        string message, name, id, date, price, amount, points, line;
+        string id, name, date, price, amount, points, line;
         bool exist;
 };
 

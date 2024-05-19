@@ -21,7 +21,6 @@ class Crud
         Customer user;
         Product merchandise;
         Bill sales;
-        int the_beg, the_end;
 };
 
 

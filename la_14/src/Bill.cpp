@@ -16,7 +16,7 @@ Bill::~Bill()
 }
 
 // function to define the next bill ID based on the last one created
-void Bill::set_billy()
+void Bill::set_id()
 {
     int counter = 0;
     ifstream read("bills.csv", ios::in);
@@ -197,6 +197,8 @@ void Bill::products_report()
 void Bill::low_demand()
 {
     int sold_amount=0;
+    float average;
+    string selled;
     vector<string> sales;
     ifstream read("bought.csv", ios::in);
     ofstream report("products_report.txt", ios::app);
@@ -269,11 +271,13 @@ void Bill::low_demand()
 // function that ask for a customer ID and then ask for
 void Bill::create(int loop)
 {
+    string client;
+    int option;
     paypal.set_id();
     paypal.set_exist(paypal.get_id(), "customers.csv");
     if(paypal.get_exist())
     {
-        bill.set_billy();
+        bill.set_id();
         bill.set_subtotal(0, 0, 0);
         paypal.set_totalpoints(0, 0, 0);
         ofstream data("bills.csv", ios::app);
