@@ -18,7 +18,7 @@ void Cloud::set_number(string message)
     while(true)
     {
         cout << message; cin >> number;
-        if(number < 0)
+        if(number < 0) // verify that the number is not negative
         {
             cout << "----- negative numbers not allowed -----" << endl;
         }
@@ -35,7 +35,7 @@ double Cloud::get_number()
     return number;
 }
 
-// function to enter an ID
+// function to enter an id
 void Cloud::set_id(string message)
 {
     set_number(message);
@@ -48,7 +48,7 @@ string Cloud::get_id()
     return id;
 }
 
-// function to search an ID in a file an drops true/false based on the existence
+// function to search an id in a file an drops true/false based on the existence
 void Cloud::set_exist(string id, string file)
 {
     exist = false;
@@ -57,7 +57,7 @@ void Cloud::set_exist(string id, string file)
     {
         while(getline(read, line))
         {
-            string registered = line.substr(0, line.find(','));
+            string registered = line.substr(0, line.find(',')); // verify if the id is in the line
             if(id == registered)
             {
                 exist = true;
@@ -80,7 +80,7 @@ bool Cloud::get_exist()
 // function to enter a name
 void Cloud::set_name(string message)
 {
-    fflush(stdin);
+    fflush(stdin); // clean the memory buffer
     cout << message; getline(cin, name);
 }
 
@@ -116,34 +116,34 @@ void Cloud::set_date(string message)
         set_number("YYYY: "); yyyy = number;
         switch(mm)
         {
-            case 1: limit = 31; break;
-            case 2:
+            case 1: limit = 31; break; // january
+            case 2: // february
             {
                 limit = 28;
-                if(yyyy%4 == 0)
+                if(yyyy%4 == 0) // leap-year
                 {
                     limit = 29;
                 }
             }; break;
-            case 3: limit = 31; break;
-            case 4: limit = 30; break;
-            case 5: limit = 31; break;
-            case 6: limit = 30; break;
-            case 7: limit = 31; break;
-            case 8: limit = 31; break;
-            case 9: limit = 30; break;
-            case 10: limit = 31; break;
-            case 11: limit = 30; break;
-            case 12: limit = 31; break;
+            case 3: limit = 31; break; // march
+            case 4: limit = 30; break; // april
+            case 5: limit = 31; break; // may
+            case 6: limit = 30; break; // june
+            case 7: limit = 31; break; // july
+            case 8: limit = 31; break; // august
+            case 9: limit = 30; break; // september
+            case 10: limit = 31; break; // october
+            case 11: limit = 30; break; // november
+            case 12: limit = 31; break; // december
         }
-        if((dd > limit) || (mm > 12))
+        if((dd>limit) || (mm>12)) // verify that the day/month is not higher than the limit
         {
             system("cls");
             cout << "----- invalid date -----" << endl;
         }
         else
         {
-            date = to_string(dd) + "/" + to_string(mm) + "/" + to_string(yyyy);
+            date = to_string(dd) + "/" + to_string(mm) + "/" + to_string(yyyy); // save the date in the format DD/MM/YYYY
             break;
         }
     }
@@ -161,7 +161,7 @@ string Cloud::get_points()
     return points;
 }
 
-// ask for an ID and replace the file without the deleted item
+// ask for an id and replace the file without the deleted item
 void Cloud::d_elete(string file, string searched)
 {
     ifstream original(file);
@@ -175,7 +175,7 @@ void Cloud::d_elete(string file, string searched)
             getline(to_delete, name, ',');
             if(searched == id)
             {
-                continue;
+                continue; // ignores the line to delete
             }
             else
             {
@@ -199,7 +199,7 @@ void Cloud::open_error(string file)
     cout << "----- " + file + " error -----" << endl;
 }
 
-// search an ID and save the item data
+// search an id and save the item data
 void Cloud::eyefind(string file, string searched, int option)
 {
     ifstream seek(file, ios::in);
@@ -247,7 +247,6 @@ void Cloud::success(int option, int crud)
     switch(crud)
     {
         case 1: cout << "----- " << type << " created succesfully -----" << endl; break;
-        case 2: cout << "----- purchase completed successfully -----" << endl << endl; break;
         case 3: cout << "----- " << type << " updated succesfully -----" << endl; break;
         case 4: cout << "----- " << type << " deleted succesfully -----" << endl; break;
     }

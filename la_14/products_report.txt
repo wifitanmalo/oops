@@ -3,4 +3,3 @@
 
 ----- low demand -----
 - ID: 0 - Plastic bagx0
-- ID: 4 - Rubik's Cubex1

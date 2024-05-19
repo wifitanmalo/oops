@@ -28,10 +28,10 @@ void Bill::set_billy()
             getline(bills, bought.id, ',');
             if(bought.id != "")
             {
-                counter = stoi(bought.id) + 1;
+                counter = stoi(bought.id) + 1; // add one to the last registered id
                 billy = to_string(static_cast<int>(counter));;
             }
-            else
+            else // if the file is empty the main id will be 1
             {
                 billy = "1";
                 break;
@@ -314,14 +314,14 @@ void Bill::create(int loop)
                         {
                             getline(products, bought.name, ',');
                             getline(products, bought.price, ',');
-                            getline(products, bought.amount, ',');
+                            getline(products, chopped, ',');
                             getline(products, bought.points, ',');
                             break;
                         }
                     }
                     product_list.close();
                     bought.set_amount();
-                    if(stoi(bought.get_amount()) > stoi(bought.amount) || stoi(bought.get_amount()) == 0) // verify that the amount is not higher than the product stock
+                    if((stoi(bought.get_amount()) > stoi(chopped)) || (bought.get_amount() == "0")) // verify that the amount is not higher than the product stock
                     {
                         cout << "----- invalid stock -----" << endl;
                         system("pause");
@@ -341,15 +341,19 @@ void Bill::create(int loop)
                                 {
                                     getline(products, bought.name,',');
                                     getline(products, bought.price,',');
-                                    getline(products, bought.amount,',');
+                                    getline(products, subtotal,',');
                                     getline(products, bought.points,',');
                                     getline(products, bought.date,',');
-                                    shopping_cart << bill.get_billy() << "," << bought.get_id() << ","
-                                    << bought.name << "," << bought.price << "," << bought.get_amount() << endl; // add the product to the bought.csv file
+
+                                    shopping_cart << bill.get_billy() << ","
+                                    << bought.get_id() << ","
+                                    << bought.name << ","
+                                    << bought.price << ","
+                                    << bought.get_amount() << endl; // add the product to the bought.csv file
 
                                     bill.set_subtotal(stof(bill.get_subtotal()), stof(bought.price), stoi(bought.get_amount())); // set the total to pay
                                     paypal.set_totalpoints(stoi(paypal.get_points()), stoi(bought.points), stoi(bought.get_amount())); // set the total points earned
-                                    bought.reduce(stoi(bought.amount), stoi(bought.get_amount())); // set the stock - amount buyed
+                                    bought.reduce(stoi(subtotal), stoi(bought.get_amount())); // set the stock - amount buyed
 
                                     reduced << billy << ","
                                     << bought.name << ","
@@ -393,6 +397,7 @@ void Bill::create(int loop)
                                     {
                                         earned = stoi(paypal.get_points());
                                         paypal.Cloud::set_date("- Purchase date: ");
+                                        system("cls");
 
                                         data << bill.get_subtotal() << ","
                                         << bill.get_cash() << ","
@@ -402,7 +407,6 @@ void Bill::create(int loop)
 
                                         paypal.update_points(paypal.get_id(), earned); // update the customer points to the increased ones
                                         bill.read("printed.txt", bill.get_billy(), true); // print the bill in the printed.txt file
-                                        paypal.success(3, 2);
                                         break;
                                     }
                                 }
