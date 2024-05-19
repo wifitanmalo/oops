@@ -1,4 +1,19 @@
   ID            NAME           PRICE  AMOUNT
+   4    Rubik's Cube    $50000.000000     x1
+   3 Coca-Cola 400ml     $3500.000000     x2
+**** SUBTOTAL/TOTAL >>>> $57000.000000
+     CASH: $60000.000000
+     CHANGE: $3000.000000
+--------------------------------------------
+PURCHASE DATE: 25/9/2011
+DEAR CUSTOMER: Nicolas (2380530)
+EARNED POINTS: 56
+BILL ID: 2
+********* THANKS FOR YOUR PURCHASE *********
+
+
+
+  ID            NAME           PRICE  AMOUNT
    1         Condoms     $6900.000000     x2
    2            Soap     $4500.000000     x1
    0     Plastic bag      $200.000000     x1
@@ -15,65 +30,18 @@ BILL ID: 1
 
 
   ID            NAME           PRICE  AMOUNT
-   4    Rubik's Cube    $50000.000000     x1
-   3 Coca-Cola 400ml     $3500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $57000.000000
-     CASH: $60000.000000
-     CHANGE: $3000.000000
+**** SUBTOTAL/TOTAL >>>> $18300.000000
+     CASH: $100000.000000
+     CHANGE: $81700.000000
 --------------------------------------------
-PURCHASE DATE: 25/9/2011
-DEAR CUSTOMER: Nicolas (2380530)
-EARNED POINTS: 56
-BILL ID: 2
+PURCHASE DATE: 12/3/2023
+DEAR CUSTOMER: Karen Andrea (2459413)
+EARNED POINTS: 142
+BILL ID: 6
 ********* THANKS FOR YOUR PURCHASE *********
 
 
 
-  ID            NAME           PRICE  AMOUNT
-   2            Soap     $4500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $9000.000000
-     CASH: $10000.000000
-     CHANGE: $1000.000000
---------------------------------------------
-PURCHASE DATE: 1/1/2001
-DEAR CUSTOMER: Beta tester (0)
-EARNED POINTS: 8
-BILL ID: 3
-********* THANKS FOR YOUR PURCHASE *********
-
-
-
-  ID            NAME           PRICE  AMOUNT
-   1         Condoms     $6900.000000     x1
-**** SUBTOTAL/TOTAL >>>> $6900.000000
-     CASH: $7000.000000
-     CHANGE: $100.000000
---------------------------------------------
-PURCHASE DATE: 27/4/2024
-DEAR CUSTOMER: Beta tester (0)
-EARNED POINTS: 69
-BILL ID: 4
-********* THANKS FOR YOUR PURCHASE *********
-
-
-
-  ID            NAME           PRICE  AMOUNT
-   3 Coca-Cola 400ml     $3500.000000     x2
-**** SUBTOTAL/TOTAL >>>> $7000.000000
-     CASH: $7000.000000
-     CHANGE: $0.000000
---------------------------------------------
-PURCHASE DATE: 12/12/2012
-DEAR CUSTOMER: Beta tester (0)
-EARNED POINTS: 6
-BILL ID: 5
-********* THANKS FOR YOUR PURCHASE *********
-
-
-
---------------- 2000 to 2024 ---------------
-   ******** TOTAL INCOME: $98400 ********
-
------ 2 -----
-   ******** TOTAL INCOME: $0 ********
+--------------- 2023 to 2025 ---------------
+   ******** TOTAL INCOME: $36800 ********
 

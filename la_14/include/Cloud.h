@@ -1,7 +1,7 @@
 #ifndef CLOUD_H
 #define CLOUD_H
 
-#include<iostream>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 using namespace std;
@@ -31,13 +31,12 @@ class Cloud
         void open_error(string);
         void eyefind(string, string, int);
         void not_founded(bool);
-        void success(int, int, string);
+        void success(int, int);
         // crud
         virtual void d_elete(string, string);
         // public variables
         double number;
-        string message, name, id, date, price, amount, points, line, old, deleted;
-    private:
+        string message, name, id, date, price, amount, points, line;
         bool exist;
 };
 

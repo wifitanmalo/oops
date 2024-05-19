@@ -15,7 +15,6 @@ class Customer : public Cloud
         void set_id();
         void set_name();
         void set_date();
-        void set_increase(int, int);
         void set_totalpoints(int, int, int);
         // crud
         void create();

@@ -57,7 +57,7 @@ void Product::set_points()
 // function to reduce an buyed amount of the total stock
 void Product::reduce(int stock_amount, int amount_bought)
 {
-    number = stock_amount-amount_bought;
+    number = stock_amount-amount_bought; // subtract the total stock by the amount to buy
     amount = to_string(static_cast<int>(number));
 }
 
@@ -86,9 +86,15 @@ void Product::create()
             product.set_amount();
             product.set_points();
             product.set_date();
-            create << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
-            << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-            success(2, 1, product.get_name());
+
+            create << product.get_id() << ","
+            << product.get_name() << ","
+            << product.get_price() << ","
+            << product.get_amount() << ","
+            << product.get_points() << ","
+            << product.get_date() << endl; // add the new product to products.csv file
+
+            success(2, 1);
         }
         else
         {
@@ -150,7 +156,7 @@ void Product::update()
                 getline(products, amount,',');
                 getline(products, points,',');
                 getline(products, date,',');
-                if(product.get_id() == id)
+                if(product.get_id() == id) // line to update
                 {
                     product.set_id();
                     product.set_exist(product.get_id(), "products.csv");
@@ -166,12 +172,18 @@ void Product::update()
                         product.set_amount();
                         product.set_points();
                         product.set_date();
-                        updated << product.get_id() << "," << product.get_name() << "," << product.get_price() << ","
-                        << product.get_amount() << "," << product.get_points() << "," << product.get_date() << endl;
-                        success(2, 3, product.get_name());
+
+                        updated << product.get_id() << ","
+                        << product.get_name() << ","
+                        << product.get_price() << ","
+                        << product.get_amount() << ","
+                        << product.get_points() << ","
+                        << product.get_date() << endl; // add the updated product to the updated.csv file
+
+                        success(2, 3);
                     }
                 }
-                else
+                else // normal line
                 {
                     updated << line << endl;
                 }
@@ -200,7 +212,7 @@ void Product::d_elete()
     if(product.get_exist())
     {
         Cloud::d_elete("products.csv", product.get_id());
-        success(2, 4, deleted);
+        success(2, 4);
     }
     else
     {

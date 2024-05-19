@@ -1,6 +1,5 @@
 ----- out of stock -----
-- ID: 2 - Soap
-- ID: 4 - Rubik's Cube
+- None
 
 ----- low demand -----
 - ID: 0 - Plastic bagx0

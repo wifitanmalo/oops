@@ -40,10 +40,8 @@ class Bill
         Product bought;
         int option, earned;
         float average;
-        string billy, chopped, subtotal, cash, change, selled;
+        string line, billy, client, chopped, subtotal, cash, change, selled;
         stringstream print_line;
-
-        string name, customer_name, id, price, amount, points, date, line, deleted;
 };
 
 

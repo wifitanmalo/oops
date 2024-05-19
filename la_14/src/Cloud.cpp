@@ -106,8 +106,8 @@ string Cloud::get_amount()
 // function to enter a date that verifies if is valid
 void Cloud::set_date(string message)
 {
-    date = "0";
     int dd, mm, yyyy, limit;
+    date = "0";
     while(true)
     {
         cout << message << endl;
@@ -175,7 +175,7 @@ void Cloud::d_elete(string file, string searched)
             getline(to_delete, name, ',');
             if(searched == id)
             {
-                deleted = name;
+                continue;
             }
             else
             {
@@ -235,20 +235,20 @@ void Cloud::not_founded(bool exist)
 }
 
 // succes message that shows when somethings ends well
-void Cloud::success(int option, int crud, string name)
+void Cloud::success(int option, int crud)
 {
     string type;
     switch(option)
     {
-        case 1: type = "customer '"; break;
-        case 2: type = "product '"; break;
-        case 3: type = "bill '"; break;
+        case 1: type = "customer"; break;
+        case 2: type = "product"; break;
+        case 3: type = "bill"; break;
     }
     switch(crud)
     {
-        case 1: cout << "----- " << type << name << "' created succesfully -----" << endl; break;
+        case 1: cout << "----- " << type << " created succesfully -----" << endl; break;
         case 2: cout << "----- purchase completed successfully -----" << endl << endl; break;
-        case 3: cout << "----- " << type << name << "' updated succesfully -----" << endl; break;
-        case 4: cout << "----- " << type << name << "' deleted succesfully -----" << endl; break;
+        case 3: cout << "----- " << type << " updated succesfully -----" << endl; break;
+        case 4: cout << "----- " << type << " deleted succesfully -----" << endl; break;
     }
 }

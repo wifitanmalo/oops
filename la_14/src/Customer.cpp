@@ -36,14 +36,7 @@ void Customer::set_date()
 // function to calculate the total points of each purchase
 void Customer::set_totalpoints(int current_points, int earned, int booster)
 {
-    number = current_points + (earned*booster);
-    points = to_string(static_cast<int>(number));
-}
-
-// function to add an earned amount of points in the total
-void Customer::set_increase(int customer_points, int total)
-{
-    number = customer_points+total;
+    number = current_points + (earned*booster); // add to the current points the product of the earned points and the amount purchased
     points = to_string(static_cast<int>(number));
 }
 
@@ -63,9 +56,14 @@ void Customer::create()
         {
             customer.set_name();
             customer.set_date();
-            customer.set_increase(0, 0);
-            create << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << customer.get_points() << endl;
-            success(1, 1, customer.get_name());
+            customer.set_totalpoints(0, 0, 0);
+
+            create << customer.get_id() << ","
+            << customer.get_name() << ","
+            << customer.get_date() << ","
+            << customer.get_points() << endl; // add the new customer to customers.csv file
+
+            success(1, 1);
             create.close();
         }
         else
@@ -111,24 +109,29 @@ void Customer::update()
                 getline(customers, name,',');
                 getline(customers, date,',');
                 getline(customers, points,',');
-                if(customer.get_id() == id)
+                if(customer.get_id() == id) // line to update
                 {
                     customer.set_id();
                     customer.set_exist(customer.get_id(), "customers.csv");
-                    if(customer.get_exist() && customer.get_id() != id)
+                    if(customer.get_exist() && customer.get_id() != id) // if the id is different, verify that it does not exist
                     {
                         updated << line << endl;
                         cout << "----- customer already exists -----" << endl;
                     }
-                    else
+                    else // id is the same
                     {
                         customer.set_name();
                         customer.set_date();
-                        updated << customer.get_id() << "," << customer.get_name() << "," << customer.get_date() << "," << points << endl;
-                        success(1, 3, customer.get_name());
+
+                        updated << customer.get_id() << ","
+                        << customer.get_name() << ","
+                        << customer.get_date() << ","
+                        << points << endl; // add the updated customer to the updated.csv file
+
+                        success(1, 3);
                     }
                 }
-                else
+                else // normal line
                 {
                     updated << line << endl;
                 }
@@ -162,12 +165,16 @@ void Customer::update_points(string searched, int add)
         getline(customers, name, ',');
         getline(customers, date, ',');
         getline(customers, points, ',');
-        if(searched == id)
+        if(searched == id) // line to update
         {
             number = stoi(points) + add;
-            updated << id << "," << name << "," << date << "," << to_string(static_cast<int>(number)) << endl;
+
+            updated << id << ","
+            << name << ","
+            << date << ","
+            << to_string(static_cast<int>(number)) << endl; // add the customer with the updated points to updated.csv file
         }
-        else
+        else // normal line
         {
             updated << line << endl;
         }
@@ -186,7 +193,7 @@ void Customer::d_elete()
     if(customer.get_exist())
     {
         Cloud::d_elete("customers.csv", customer.get_id());
-        success(1, 4, deleted);
+        success(1, 4);
     }
     else
     {

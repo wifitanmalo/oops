@@ -1,15 +1,15 @@
   ID            NAME           PRICE  AMOUNT
    1         Condoms     $6900.000000     x2
-   2            Soap     $4500.000000     x1
-   0     Plastic bag      $200.000000     x1
-**** SUBTOTAL/TOTAL >>>> $18500.000000
-     CASH: $20000.000000
-     CHANGE: $1500.000000
+   0     Plastic bag      $200.000000   x194
+   5  Condensed milk     $1650.000000    x54
+**** SUBTOTAL/TOTAL >>>> $141700.000000
+     CASH: $200000.000000
+     CHANGE: $58300.000000
 --------------------------------------------
-PURCHASE DATE: 25/11/2023
+PURCHASE DATE: 18/5/2024
 DEAR CUSTOMER: Laura Sofia (2209)
-EARNED POINTS: 142
-BILL ID: 1
+EARNED POINTS: 246
+BILL ID: 7
 ********* THANKS FOR YOUR PURCHASE *********
 
 
